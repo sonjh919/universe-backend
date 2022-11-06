@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dream.universe.member.dao.MemberMapper">
+
+    <select id="doubleCheckEmail" resultType="MemberDTO">
+        SELECT
+            MEMBER_CODE
+             , MEMBER_EMAIL
+             , MEMBER_PASSWORD
+             , MEMBER_NAME
+             , MEMBER_PHONE
+             , MEMBER_CAP
+             , MEMBER_CHERRY
+             , MEMBER_NICKNAME
+             , MEMBER_ROLE
+        FROM TB_MEMBER
+        WHERE MEMBER_EMAIL = #{ email }
+    </select>
+
+
+</mapper>
+
+
+
