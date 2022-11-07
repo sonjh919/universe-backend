@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.Member;
 import java.text.ParseException;
+import java.util.Enumeration;
 
 @RestController
 @RequestMapping("/auths")
@@ -28,12 +30,26 @@ public class AuthController {
     }
 
     @PostMapping("/join")
-    public ResponseEntity<ResponseDTO> join(@RequestBody MemberDTO memberDTO){
+    public ResponseEntity<ResponseDTO> join(@RequestBody MemberDTO memberDTO, HttpServletRequest request){
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        Enumeration headerNames = request.getHeaderNames();
+        while(headerNames.hasMoreElements()) {
+            String name = (String)headerNames.nextElement();
+            String value = request.getHeader(name);
+            System.out.println(name + " : " + value);
+        }
+
+        System.out.println("memberDTO = " + memberDTO);
+        
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.CREATED, "회원가입 성공", authService.join(memberDTO)));
     }
 
     @PostMapping("/email")
     public ResponseEntity<ResponseDTO> email(@RequestBody MemberDTO email)  throws ParseException {
+
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "이메일 중복 확인 성공", authService.doubleCheckEmail(email)));
     }
 
