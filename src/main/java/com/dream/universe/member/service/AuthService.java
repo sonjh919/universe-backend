@@ -5,6 +5,7 @@ import com.dream.universe.exception.DuplicatedMemberIdException;
 import com.dream.universe.exception.LoginFailedException;
 import com.dream.universe.jwt.TokenProvider;
 import com.dream.universe.member.dao.MemberMapper;
+import com.dream.universe.member.dto.MajorDTO;
 import com.dream.universe.member.dto.MemberDTO;
 import com.dream.universe.member.dto.TokenDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Member;
+import java.sql.SQLOutput;
 
 
 @Service
@@ -29,28 +31,22 @@ public class AuthService {
 
     @Transactional
     public MemberDTO join(MemberDTO memberDTO) {
+        MajorDTO majorDTO = new MajorDTO();
+        majorDTO.setMajor(memberDTO.getMemberMajor());
 
-//        if(memberMapper.findById(memberDTO.getMemberId()) != null ){
-//            throw new DuplicatedMemberIdException("이미 가입된 아이디입니다!");
-//        }
+        System.out.println(majorDTO);
 
-//        if(memberMapper.findByEmail(memberDTO.getEmail()) != null ){
-//            throw new DuplicatedMemberIdException("이미 가입된 이메일입니다!");
-//        }
+        memberDTO.setMemberPassword(passwordEncoder.encode(memberDTO.getPassword()));
 
-//        if(memberDTO.getMemberId() == "" || memberDTO.getMemberPwd() == "" || memberDTO.getEmail() == "" || memberDTO.getPhone() == ""){
-//            throw new FullInputMemberInfoException("필수 정보를 모두 입력해주세요");
-//        }
-
-        memberDTO.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
-
-        int result = memberMapper.insertMember(memberDTO);
+        int resultMember = memberMapper.insertMember(memberDTO);
+        int resultMajor = memberMapper.insertMajor(majorDTO);
         return memberDTO;
     }
 
     @Transactional
     public TokenDTO login(MemberDTO memberDTO) {
-        MemberDTO member = memberMapper.findByMemberId(memberDTO.getEmail())
+        System.out.println("memberDTO : " + memberDTO);
+        MemberDTO member = memberMapper.findByMemberId(memberDTO.getMemberEmail())
                 .orElseThrow(() -> new LoginFailedException("잘못된 아이디 또는 비밀번호 입니다."));
 
         System.out.println("member = " + member);
@@ -65,8 +61,16 @@ public class AuthService {
 
     public boolean doubleCheckEmail(MemberDTO email) {
 
-        if(memberMapper.doubleCheckEmail(email.getEmail()) != null){
-            return false;
+        if(memberMapper.doubleCheckEmail(email.getMemberEmail()) != null){
+            throw new DuplicatedMemberIdException("이미 가입된 이메일입니다!");
+        }
+
+        return true;
+    }
+
+    public boolean doubleCheckNickName(MemberDTO memberDTO) {
+        if(memberMapper.doubleCheckNickName(memberDTO.getMemberNickName()) != null){
+            throw new DuplicatedMemberIdException("중복된 닉네임입니다!");
         }
 
         return true;

@@ -21,13 +21,14 @@ public class MemberController {
     }
 
     @GetMapping()
-    public ResponseEntity<ResponseDTO> findMemberById(@RequestHeader String accessToken){
+    public ResponseEntity<ResponseDTO> findMemberById(@RequestHeader(value="Authorization")  String accessToken){
+        System.out.println(accessToken);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원 정보 조회 성공", memberService.findMemberById(accessToken)));
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ResponseDTO> update(@RequestBody MemberDTO memberDTO){
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원정보 수정 성공", memberService.update(memberDTO)));
+    public ResponseEntity<ResponseDTO> update(@RequestHeader(value="Authorization")  String accessToken, @RequestBody MemberDTO memberDTO){
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원정보 수정 성공", memberService.update(accessToken, memberDTO)));
     }
 
     @DeleteMapping("/delete")
@@ -45,5 +46,6 @@ public class MemberController {
     public ResponseEntity<ResponseDTO> findPwd(@RequestBody ChangePwdDTO changePwdDTO){
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원 비밀번호 변경 성공", memberService.findPwd(changePwdDTO)));
     }
+
 
 }

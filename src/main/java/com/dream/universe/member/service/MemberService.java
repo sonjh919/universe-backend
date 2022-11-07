@@ -25,7 +25,9 @@ public class MemberService {
 
 
     @Transactional
-    public int update(MemberDTO memberDTO) {
+    public int update(String accessToken, MemberDTO memberDTO) {
+        String memberId = tokenProvider.getUserId(accessToken);
+        memberDTO.setMemberEmail(memberId);
         int result = memberMapper.updateMember(memberDTO);
 
         return result;
@@ -34,6 +36,7 @@ public class MemberService {
     public MemberDTO findMemberById(String accessToken) {
         String memberId = tokenProvider.getUserId(accessToken);
         MemberDTO member = memberMapper.findById(memberId);
+        System.out.println(member.getMemberEmail());
         return member;
     }
 

@@ -52,7 +52,7 @@ public class TokenProvider {
 
         Claims claims = Jwts
                 .claims()
-                .setSubject(member.getEmail());
+                .setSubject(member.getMemberEmail());
 
         claims.put(AUTHORITIES_KEY, roles);
 

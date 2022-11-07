@@ -9,37 +9,32 @@ import java.util.Collection;
 public class MemberDTO implements UserDetails{
 
     private Long memberCode;
-    private String email;
-    private String password;
+    private String memberEmail;
+    private String memberPassword;
     private String memberName;
-    private String phoneNumber;
-    private Long cap;
-    private Long cherry;
-    private String nickName;
+    private String memberPhone;
+    private Long memberCap;
+    private Long memberCherry;
+    private String memberNickName;
     private String memberRole;
 
-    public MemberDTO(Long memberCode, String email, String password, String memberName, String phoneNumber, Long cap, Long cherry, String nickName, String memberRole, Collection<? extends GrantedAuthority> authorities) {
+    private String memberMajor;
+
+    public MemberDTO(Long memberCode, String memberEmail, String memberPassword, String memberName, String memberPhone, Long memberCap, Long memberCherry, String memberNickName, String memberRole, String memberMajor, Collection<? extends GrantedAuthority> authorities) {
         this.memberCode = memberCode;
-        this.email = email;
-        this.password = password;
+        this.memberEmail = memberEmail;
+        this.memberPassword = memberPassword;
         this.memberName = memberName;
-        this.phoneNumber = phoneNumber;
-        this.cap = cap;
-        this.cherry = cherry;
-        this.nickName = nickName;
+        this.memberPhone = memberPhone;
+        this.memberCap = memberCap;
+        this.memberCherry = memberCherry;
+        this.memberNickName = memberNickName;
         this.memberRole = memberRole;
+        this.memberMajor = memberMajor;
         this.authorities = authorities;
     }
 
     public MemberDTO() {}
-
-    public String getMemberRole() {
-        return memberRole;
-    }
-
-    public void setMemberRole(String memberRole) {
-        this.memberRole = memberRole;
-    }
 
     public Long getMemberCode() {
         return memberCode;
@@ -49,20 +44,20 @@ public class MemberDTO implements UserDetails{
         this.memberCode = memberCode;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMemberEmail() {
+        return memberEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMemberEmail(String memberEmail) {
+        this.memberEmail = memberEmail;
     }
 
-    public String getPassword() {
-        return password;
+    public String getMemberPassword() {
+        return memberPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setMemberPassword(String memberPassword) {
+        this.memberPassword = memberPassword;
     }
 
     public String getMemberName() {
@@ -73,36 +68,52 @@ public class MemberDTO implements UserDetails{
         this.memberName = memberName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getMemberPhone() {
+        return memberPhone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setMemberPhone(String memberPhone) {
+        this.memberPhone = memberPhone;
     }
 
-    public Long getCap() {
-        return cap;
+    public Long getMemberCap() {
+        return memberCap;
     }
 
-    public void setCap(Long cap) {
-        this.cap = cap;
+    public void setMemberCap(Long memberCap) {
+        this.memberCap = memberCap;
     }
 
-    public Long getCherry() {
-        return cherry;
+    public Long getMemberCherry() {
+        return memberCherry;
     }
 
-    public void setCherry(Long cherry) {
-        this.cherry = cherry;
+    public void setMemberCherry(Long memberCherry) {
+        this.memberCherry = memberCherry;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getMemberNickName() {
+        return memberNickName;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setMemberNickName(String memberNickName) {
+        this.memberNickName = memberNickName;
+    }
+
+    public String getMemberRole() {
+        return memberRole;
+    }
+
+    public void setMemberRole(String memberRole) {
+        this.memberRole = memberRole;
+    }
+
+    public String getMemberMajor() {
+        return memberMajor;
+    }
+
+    public void setMemberMajor(String memberMajor) {
+        this.memberMajor = memberMajor;
     }
 
     public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
@@ -116,8 +127,13 @@ public class MemberDTO implements UserDetails{
     }
 
     @Override
+    public String getPassword() {
+        return this.getMemberPassword();
+    }
+
+    @Override
     public String getUsername() {
-        return this.memberName;
+        return this.getMemberName();
     }
 
     @Override
@@ -144,14 +160,15 @@ public class MemberDTO implements UserDetails{
     public String toString() {
         return "MemberDTO{" +
                 "memberCode=" + memberCode +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                ", memberEmail='" + memberEmail + '\'' +
+                ", memberPassword='" + memberPassword + '\'' +
                 ", memberName='" + memberName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", cap=" + cap +
-                ", cherry=" + cherry +
-                ", nickName='" + nickName + '\'' +
+                ", memberPhone='" + memberPhone + '\'' +
+                ", memberCap=" + memberCap +
+                ", memberCherry=" + memberCherry +
+                ", memberNickName='" + memberNickName + '\'' +
                 ", memberRole='" + memberRole + '\'' +
+                ", memberMajor='" + memberMajor + '\'' +
                 ", authorities=" + authorities +
                 '}';
     }

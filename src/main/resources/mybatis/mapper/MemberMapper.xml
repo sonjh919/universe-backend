@@ -17,11 +17,104 @@
              , MEMBER_NICKNAME
              , MEMBER_ROLE
         FROM TB_MEMBER
-        WHERE MEMBER_EMAIL = #{ email }
+        WHERE MEMBER_EMAIL = #{ memberEmail }
     </select>
+
+    <select id="doubleCheckNickName" resultType="MemberDTO">
+        SELECT
+            MEMBER_CODE
+             , MEMBER_EMAIL
+             , MEMBER_PASSWORD
+             , MEMBER_NAME
+             , MEMBER_PHONE
+             , MEMBER_CAP
+             , MEMBER_CHERRY
+             , MEMBER_NICKNAME
+             , MEMBER_ROLE
+        FROM TB_MEMBER
+        WHERE MEMBER_NICKNAME = #{ memberNickName }
+    </select>
+
+    <select id="findByMemberId" resultType="MemberDTO">
+        SELECT
+            MEMBER_CODE
+             , MEMBER_EMAIL
+             , MEMBER_PASSWORD
+             , MEMBER_NAME
+             , MEMBER_PHONE
+             , MEMBER_CAP
+             , MEMBER_CHERRY
+             , MEMBER_NICKNAME
+             , MEMBER_ROLE
+        FROM TB_MEMBER
+        WHERE MEMBER_EMAIL = #{ memberEmail }
+    </select>
+
+    <select id="findById" resultType="MemberDTO">
+        SELECT
+            MEMBER_CODE
+             , MEMBER_EMAIL
+             , MEMBER_PASSWORD
+             , MEMBER_NAME
+             , MEMBER_PHONE
+             , MEMBER_CAP
+             , MEMBER_CHERRY
+             , MEMBER_NICKNAME
+             , MEMBER_ROLE
+        FROM TB_MEMBER
+        WHERE MEMBER_EMAIL = #{ memberEmail }
+    </select>
+
+    <insert id="insertMember" parameterType="MemberDTO">
+    INSERT INTO TB_MEMBER
+    (
+    MEMBER_CODE , MEMBER_EMAIL , MEMBER_PASSWORD ,
+    MEMBER_NAME ,MEMBER_PHONE , MEMBER_CAP ,
+    MEMBER_CHERRY , MEMBER_NICKNAME ,  MEMBER_ROLE,
+    MEMBER_MAJOR
+    )
+    VALUES
+    (
+    SEQ_TB_MEMBER_CODE.NEXTVAL
+    , #{ memberEmail }
+    , #{ memberPassword }
+    , #{ memberName }
+    , #{ memberPhone }
+    , 0
+    , 0
+    , ''
+    , 'USER'
+    , #{ memberMajor }
+    )
+    </insert>
+
+    <insert id="insertMajor" parameterType="MajorDTO">
+    INSERT INTO TB_MAJOR
+    (
+        MEMBER_CODE,MAJOR,MAJOR_CONCENTRATION,
+        MAJOR_KEYWORD,MAJOR_SPECIALTY,MAJOR_HOPE_PATH
+    )
+    VALUES
+    (
+    SEQ_TB_MEMBER_CODE.CURRVAL
+    , #{ major }
+    , ''
+    , ''
+    , ''
+    , ''
+    )
+    </insert>
+
+    <update id="updateMember">
+        UPDATE
+            TB_MEMBER A
+        SET A.MEMBER_NAME = #{ memberName }
+          , A.MEMBER_PHONE = #{  memberPhone  }
+          , A.MEMBER_NICKNAME = #{ memberNickName }
+        WHERE A.MEMBER_EMAIL = #{ memberEmail }
+    </update>
 
 
 </mapper>
-
 
 
