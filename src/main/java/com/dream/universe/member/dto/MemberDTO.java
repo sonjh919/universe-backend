@@ -2,29 +2,49 @@ package com.dream.universe.member.dto;
 
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Date;
 
-public class MemberDTO{
+public class MemberDTO implements UserDetails{
 
     private Long memberCode;
-    private String email;
-    private String password;
-    private String name;
+    private String memberEmail;
+    private String memberPassword;
+    private String memberName;
+    private String memberPhone;
+    private Long memberCap;
+    private Long memberCherry;
+    private String memberNickName;
+    private String memberRole;
 
-    private String phoneNumber;
+    private String memberMajor;
+
+    private String memberWithdrawal;
+
+    public MemberDTO(Long memberCode, String memberEmail, String memberPassword, String memberName, String memberPhone, Long memberCap, Long memberCherry, String memberNickName, String memberRole, String memberMajor, String memberWithdrawal, Collection<? extends GrantedAuthority> authorities) {
+        this.memberCode = memberCode;
+        this.memberEmail = memberEmail;
+        this.memberPassword = memberPassword;
+        this.memberName = memberName;
+        this.memberPhone = memberPhone;
+        this.memberCap = memberCap;
+        this.memberCherry = memberCherry;
+        this.memberNickName = memberNickName;
+        this.memberRole = memberRole;
+        this.memberMajor = memberMajor;
+        this.memberWithdrawal = memberWithdrawal;
+        this.authorities = authorities;
+    }
 
     public MemberDTO() {}
 
-    public MemberDTO(Long memberCode, String email, String password, String name, String phoneNumber) {
-        this.memberCode = memberCode;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
+    public String getMemberWithdrawal() {
+        return memberWithdrawal;
+    }
+
+    public void setMemberWithdrawal(String memberWithdrawal) {
+        this.memberWithdrawal = memberWithdrawal;
     }
 
     public Long getMemberCode() {
@@ -35,46 +55,133 @@ public class MemberDTO{
         this.memberCode = memberCode;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMemberEmail() {
+        return memberEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMemberEmail(String memberEmail) {
+        this.memberEmail = memberEmail;
     }
 
+    public String getMemberPassword() {
+        return memberPassword;
+    }
+
+    public void setMemberPassword(String memberPassword) {
+        this.memberPassword = memberPassword;
+    }
+
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+
+    public String getMemberPhone() {
+        return memberPhone;
+    }
+
+    public void setMemberPhone(String memberPhone) {
+        this.memberPhone = memberPhone;
+    }
+
+    public Long getMemberCap() {
+        return memberCap;
+    }
+
+    public void setMemberCap(Long memberCap) {
+        this.memberCap = memberCap;
+    }
+
+    public Long getMemberCherry() {
+        return memberCherry;
+    }
+
+    public void setMemberCherry(Long memberCherry) {
+        this.memberCherry = memberCherry;
+    }
+
+    public String getMemberNickName() {
+        return memberNickName;
+    }
+
+    public void setMemberNickName(String memberNickName) {
+        this.memberNickName = memberNickName;
+    }
+
+    public String getMemberRole() {
+        return memberRole;
+    }
+
+    public void setMemberRole(String memberRole) {
+        this.memberRole = memberRole;
+    }
+
+    public String getMemberMajor() {
+        return memberMajor;
+    }
+
+    public void setMemberMajor(String memberMajor) {
+        this.memberMajor = memberMajor;
+    }
+
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    private Collection<? extends GrantedAuthority> authorities;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities;
+    }
+
+    @Override
     public String getPassword() {
-        return password;
+        return this.getMemberPassword();
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public String getUsername() {
+        return this.getMemberName();
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     @Override
     public String toString() {
         return "MemberDTO{" +
                 "memberCode=" + memberCode +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                ", memberEmail='" + memberEmail + '\'' +
+                ", memberPassword='" + memberPassword + '\'' +
+                ", memberName='" + memberName + '\'' +
+                ", memberPhone='" + memberPhone + '\'' +
+                ", memberCap=" + memberCap +
+                ", memberCherry=" + memberCherry +
+                ", memberNickName='" + memberNickName + '\'' +
+                ", memberRole='" + memberRole + '\'' +
+                ", memberMajor='" + memberMajor + '\'' +
+                ", memberWithdrawal='" + memberWithdrawal + '\'' +
+                ", authorities=" + authorities +
                 '}';
     }
 }

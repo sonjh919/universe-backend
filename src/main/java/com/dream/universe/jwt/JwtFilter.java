@@ -19,21 +19,21 @@ public class JwtFilter extends OncePerRequestFilter {
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final String BEARER_PREFIX = "Bearer";
-//    private final TokenProvider tokenProvider;
+    private final TokenProvider tokenProvider;
 
-//    public JwtFilter(TokenProvider tokenProvider) {
-//        this.tokenProvider = tokenProvider;
-//    }
+    public JwtFilter(TokenProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String jwt = resolveToken(request);
 
-//            if(StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)){
-//                Authentication authentication = tokenProvider.getAuthentication(jwt);
-//                SecurityContextHolder.getContext().setAuthentication(authentication);
-//            }
+            if(StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)){
+                Authentication authentication = tokenProvider.getAuthentication(jwt);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
             filterChain.doFilter(request, response);
         } catch (RuntimeException e){
             response.setContentType("application/json");
