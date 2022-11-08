@@ -32,7 +32,8 @@ public class MemberController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDTO> delete(@RequestHeader String accessToken){
+    public ResponseEntity<ResponseDTO> delete(@RequestHeader(value="Authorization") String accessToken){
+        System.out.println(accessToken);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원 탈퇴 성공", memberService.delete(accessToken)));
     }
 

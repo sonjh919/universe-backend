@@ -16,8 +16,10 @@
              , MEMBER_CHERRY
              , MEMBER_NICKNAME
              , MEMBER_ROLE
+             , MEMBER_WITHDRAWAL
         FROM TB_MEMBER
-        WHERE MEMBER_EMAIL = #{ memberEmail }
+        WHERE MEMBER_WITHDRAWAL = 'N'
+        AND MEMBER_EMAIL = #{ memberEmail }
     </select>
 
     <select id="doubleCheckNickName" resultType="MemberDTO">
@@ -31,8 +33,10 @@
              , MEMBER_CHERRY
              , MEMBER_NICKNAME
              , MEMBER_ROLE
+             , MEMBER_WITHDRAWAL
         FROM TB_MEMBER
-        WHERE MEMBER_NICKNAME = #{ memberNickName }
+        WHERE MEMBER_WITHDRAWAL = 'N'
+        AND MEMBER_NICKNAME = #{ memberNickName }
     </select>
 
     <select id="findByMemberId" resultType="MemberDTO">
@@ -46,8 +50,10 @@
              , MEMBER_CHERRY
              , MEMBER_NICKNAME
              , MEMBER_ROLE
+             , MEMBER_WITHDRAWAL
         FROM TB_MEMBER
-        WHERE MEMBER_EMAIL = #{ memberEmail }
+        WHERE MEMBER_WITHDRAWAL = 'N'
+        AND MEMBER_EMAIL = #{ memberEmail }
     </select>
 
     <select id="findById" resultType="MemberDTO">
@@ -61,8 +67,10 @@
              , MEMBER_CHERRY
              , MEMBER_NICKNAME
              , MEMBER_ROLE
+             , MEMBER_WITHDRAWAL
         FROM TB_MEMBER
-        WHERE MEMBER_EMAIL = #{ memberEmail }
+        WHERE MEMBER_WITHDRAWAL = 'N'
+        AND MEMBER_EMAIL = #{ memberEmail }
     </select>
 
     <insert id="insertMember" parameterType="MemberDTO">
@@ -71,7 +79,7 @@
     MEMBER_CODE , MEMBER_EMAIL , MEMBER_PASSWORD ,
     MEMBER_NAME ,MEMBER_PHONE , MEMBER_CAP ,
     MEMBER_CHERRY , MEMBER_NICKNAME ,  MEMBER_ROLE,
-    MEMBER_MAJOR
+    MEMBER_MAJOR, MEMBER_WITHDRAWAL
     )
     VALUES
     (
@@ -82,9 +90,10 @@
     , #{ memberPhone }
     , 0
     , 0
-    , ''
+    , #{ memberEmail }
     , 'USER'
     , #{ memberMajor }
+    , 'N'
     )
     </insert>
 
@@ -111,6 +120,13 @@
         SET A.MEMBER_NAME = #{ memberName }
           , A.MEMBER_PHONE = #{  memberPhone  }
           , A.MEMBER_NICKNAME = #{ memberNickName }
+        WHERE A.MEMBER_EMAIL = #{ memberEmail }
+    </update>
+
+    <update id="deleteMember">
+        UPDATE
+            TB_MEMBER A
+        SET A.MEMBER_WITHDRAWAL = 'Y'
         WHERE A.MEMBER_EMAIL = #{ memberEmail }
     </update>
 
