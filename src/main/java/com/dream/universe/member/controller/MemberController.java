@@ -2,7 +2,6 @@ package com.dream.universe.member.controller;
 
 import com.dream.universe.common.ResponseDTO;
 import com.dream.universe.jwt.TokenProvider;
-import com.dream.universe.member.dto.ChangePwdDTO;
 import com.dream.universe.member.dto.MemberDTO;
 import com.dream.universe.member.service.MemberService;
 import org.springframework.http.HttpStatus;
@@ -43,10 +42,6 @@ public class MemberController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "아이디 조회 성공", memberService.findId(memberDTO)));
     }
 
-    @PutMapping("/findPwd")
-    public ResponseEntity<ResponseDTO> findPwd(@RequestBody ChangePwdDTO changePwdDTO){
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원 비밀번호 변경 성공", memberService.findPwd(changePwdDTO)));
-    }
 
 
     @PutMapping("/cherry/update")

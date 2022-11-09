@@ -117,7 +117,7 @@
     <update id="updateMember">
         UPDATE
             TB_MEMBER A
-        SET A.MEMBER_NAME = #{ memberName }
+        SET A.MEMBER_PASSWORD = #{ memberPassword }
           , A.MEMBER_PHONE = #{  memberPhone  }
           , A.MEMBER_NICKNAME = #{ memberNickName }
         WHERE MEMBER_WITHDRAWAL = 'N'
