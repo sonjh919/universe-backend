@@ -1,3 +1,4 @@
+
 package com.dream.universe.configuration;
 
 
@@ -23,3 +24,4 @@ public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
         httpSecurity.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
+
