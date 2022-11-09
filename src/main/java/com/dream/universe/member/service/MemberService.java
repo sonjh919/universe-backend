@@ -4,7 +4,6 @@ package com.dream.universe.member.service;
 import com.dream.universe.exception.ChangePwdFailedException;
 import com.dream.universe.jwt.TokenProvider;
 import com.dream.universe.member.dao.MemberMapper;
-import com.dream.universe.member.dto.ChangePwdDTO;
 import com.dream.universe.member.dto.MemberDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +27,7 @@ public class MemberService {
     public int update(String accessToken, MemberDTO memberDTO) {
         String memberId = tokenProvider.getUserId(accessToken);
         memberDTO.setMemberEmail(memberId);
+        memberDTO.setMemberPassword(passwordEncoder.encode(memberDTO.getMemberPassword()));
         int result = memberMapper.updateMember(memberDTO);
 
         return result;
@@ -75,26 +75,24 @@ public class MemberService {
     }
 
 
-
-
-
     public String findId(MemberDTO memberDTO) {
         String memberId = memberMapper.findId(memberDTO);
         return memberId;
     }
-    @Transactional
-    public int findPwd(ChangePwdDTO changePwdDTO) {
 
-        MemberDTO member = memberMapper.findByMemberId(changePwdDTO.getMemberId())
-                .orElseThrow(() -> new ChangePwdFailedException("회원 비밀번호 변경을 진행할 수 없습니다. "));
-
-        if(!passwordEncoder.matches(changePwdDTO.getOriginPwd(), member.getPassword())){
-            throw new ChangePwdFailedException("현재 비밀번호가 일치하지 않습니다.");
-        }
-
-        changePwdDTO.setMemberPwd(passwordEncoder.encode(changePwdDTO.getMemberPwd()));
-        int result = memberMapper.changePwd(changePwdDTO);
-
-        return result;
-    }
+//    @Transactional
+//    public int findPwd(ChangePwdDTO changePwdDTO) {
+//
+//        MemberDTO member = memberMapper.findByMemberId(changePwdDTO.getMemberId())
+//                .orElseThrow(() -> new ChangePwdFailedException("회원 비밀번호 변경을 진행할 수 없습니다. "));
+//
+//        if(!passwordEncoder.matches(changePwdDTO.getOriginPwd(), member.getPassword())){
+//            throw new ChangePwdFailedException("현재 비밀번호가 일치하지 않습니다.");
+//        }
+//
+//        changePwdDTO.setMemberPwd(passwordEncoder.encode(changePwdDTO.getMemberPwd()));
+//        int result = memberMapper.changePwd(changePwdDTO);
+//
+//        return result;
+//    }
 }

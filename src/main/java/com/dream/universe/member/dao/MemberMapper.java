@@ -1,7 +1,6 @@
 package com.dream.universe.member.dao;
 
 
-import com.dream.universe.member.dto.ChangePwdDTO;
 import com.dream.universe.member.dto.MajorDTO;
 import com.dream.universe.member.dto.MemberDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -25,7 +24,6 @@ public interface MemberMapper {
 
     String findId(MemberDTO memberDTO);
 
-    int changePwd(ChangePwdDTO changePwdDTO);
 
     MemberDTO doubleCheckEmail(String email);
     MemberDTO doubleCheckNickName(String nickname);
