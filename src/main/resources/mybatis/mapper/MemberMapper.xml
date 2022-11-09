@@ -120,14 +120,33 @@
         SET A.MEMBER_NAME = #{ memberName }
           , A.MEMBER_PHONE = #{  memberPhone  }
           , A.MEMBER_NICKNAME = #{ memberNickName }
-        WHERE A.MEMBER_EMAIL = #{ memberEmail }
+        WHERE MEMBER_WITHDRAWAL = 'N'
+          AND MEMBER_EMAIL = #{ memberEmail }
     </update>
+
+    <update id="updateCherry">
+        UPDATE
+            TB_MEMBER A
+        SET A.MEMBER_CHERRY = MEMBER_CHERRY + #{ memberCherry }
+        WHERE MEMBER_WITHDRAWAL = 'N'
+          AND MEMBER_EMAIL = #{ memberEmail }
+    </update>
+
+    <update id="updateCap">
+        UPDATE
+            TB_MEMBER A
+        SET A.MEMBER_CAP = MEMBER_CAP + #{ memberCap }
+        WHERE MEMBER_WITHDRAWAL = 'N'
+          AND MEMBER_EMAIL = #{ memberEmail }
+    </update>
+
 
     <update id="deleteMember">
         UPDATE
             TB_MEMBER A
         SET A.MEMBER_WITHDRAWAL = 'Y'
-        WHERE A.MEMBER_EMAIL = #{ memberEmail }
+        WHERE MEMBER_WITHDRAWAL = 'N'
+          AND MEMBER_EMAIL = #{ memberEmail }
     </update>
 
 

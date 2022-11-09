@@ -49,4 +49,16 @@ public class MemberController {
     }
 
 
+    @PutMapping("/cherry/update")
+    public ResponseEntity<ResponseDTO> cherryUpdate(@RequestHeader(value="Authorization")  String accessToken, @RequestBody MemberDTO memberDTO){
+        System.out.println("memberDTO = " + memberDTO);
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "체리정보 수정 성공", memberService.cherryUpdate(accessToken, memberDTO)));
+    }
+
+    @PutMapping("/cap/update")
+    public ResponseEntity<ResponseDTO> capUpdate(@RequestHeader(value="Authorization")  String accessToken, @RequestBody MemberDTO memberDTO){
+        System.out.println("memberDTO = " + memberDTO);
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "학사모정보 수정 성공", memberService.capUpdate(accessToken, memberDTO)));
+    }
+
 }

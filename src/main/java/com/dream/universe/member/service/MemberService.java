@@ -46,6 +46,38 @@ public class MemberService {
         return result;
     }
 
+    @Transactional
+    public Long cherryUpdate(String accessToken, MemberDTO memberDTO) {
+
+        String memberId = tokenProvider.getUserId(accessToken);
+        memberDTO.setMemberEmail(memberId);
+
+        System.out.println("memberDTO service = " + memberDTO);
+        int result = memberMapper.updateCherry(memberDTO);
+
+        MemberDTO member = memberMapper.findById(memberId);
+        Long Cherry = member.getMemberCherry();
+        return Cherry;
+    }
+
+    @Transactional
+    public Long capUpdate(String accessToken, MemberDTO memberDTO) {
+
+        String memberId = tokenProvider.getUserId(accessToken);
+        memberDTO.setMemberEmail(memberId);
+
+        System.out.println("memberDTO service = " + memberDTO);
+        int result = memberMapper.updateCap(memberDTO);
+
+        MemberDTO member = memberMapper.findById(memberId);
+        Long Cap = member.getMemberCap();
+        return Cap;
+    }
+
+
+
+
+
     public String findId(MemberDTO memberDTO) {
         String memberId = memberMapper.findId(memberDTO);
         return memberId;
