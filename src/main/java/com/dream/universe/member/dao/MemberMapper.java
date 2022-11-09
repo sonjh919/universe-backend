@@ -30,6 +30,8 @@ public interface MemberMapper {
     MemberDTO doubleCheckEmail(String email);
     MemberDTO doubleCheckNickName(String nickname);
 
+    int updateCherry(MemberDTO memberDTO);
 
+    int updateCap(MemberDTO memberDTO);
 }
 
