@@ -31,10 +31,7 @@ public class AuthController {
 
     @PostMapping("/join")
     public ResponseEntity<ResponseDTO> join(@RequestBody MemberDTO memberDTO, HttpServletRequest request){
-
-        System.out.println();
-        System.out.println();
-        System.out.println();
+        System.out.println("회원가입 API");
         Enumeration headerNames = request.getHeaderNames();
         while(headerNames.hasMoreElements()) {
             String name = (String)headerNames.nextElement();
@@ -49,30 +46,33 @@ public class AuthController {
 
     @PostMapping("/email")
     public ResponseEntity<ResponseDTO> email(@RequestBody MemberDTO email)  throws ParseException {
-
+        System.out.println("이메일 중복 확인 API");
+        System.out.println("email = " + email);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "이메일 중복 확인 성공", authService.doubleCheckEmail(email)));
     }
 
     @PostMapping("/nickname")
     public ResponseEntity<ResponseDTO> nickname(@RequestBody MemberDTO memberDTO){
-        System.out.println("memberDTO = " + memberDTO);
+        System.out.println("닉네임 중복 확인 API");
+        System.out.println("nickname = " + memberDTO);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "닉네임 중복 체크", authService.doubleCheckNickName(memberDTO)));
     }
 
     @PostMapping("/card")
     public ResponseEntity<ResponseDTO> idCardImg(@RequestParam("idCardImg") MultipartFile idCardImg) throws IOException {
+        System.out.println("학생증 인식 & 전공 선택 API");
 
         byte[] array = idCardImg.getBytes();
-        System.out.println(array.length);
+        System.out.println("length = " + array.length);
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "이미지 전송 성공", array.length));
     }
 
     @PutMapping("/login")
     public ResponseEntity<ResponseDTO> login(@RequestBody MemberDTO memberDTO){
-        System.out.println(memberDTO);
+        System.out.println("로그인 API");
+        System.out.println("memberDTO = " + memberDTO);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "로그인 성공", authService.login(memberDTO)));
-//        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "로그인 성공", "ex"));
     }
 
 }

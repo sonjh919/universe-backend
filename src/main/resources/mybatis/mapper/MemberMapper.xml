@@ -140,6 +140,16 @@
           AND MEMBER_EMAIL = #{ memberEmail }
     </update>
 
+    <update id="updateMajor">
+        UPDATE
+            TB_MAJOR A
+        SET A.MAJOR_CONCENTRATION = #{ majorConcentration }
+          , A.MAJOR_KEYWORD = #{ majorKeyword }
+          , A.MAJOR_SPECIALTY = #{ majorSpecialty }
+          , A.MAJOR_HOPE_PATH = #{ majorHopePath }
+        WHERE MEMBER_CODE = #{ memberCode }
+    </update>
+
 
     <update id="deleteMember">
         UPDATE

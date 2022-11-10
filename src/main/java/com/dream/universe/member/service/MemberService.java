@@ -4,6 +4,7 @@ package com.dream.universe.member.service;
 import com.dream.universe.exception.ChangePwdFailedException;
 import com.dream.universe.jwt.TokenProvider;
 import com.dream.universe.member.dao.MemberMapper;
+import com.dream.universe.member.dto.MajorDTO;
 import com.dream.universe.member.dto.MemberDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -80,6 +81,17 @@ public class MemberService {
         return memberId;
     }
 
+    @Transactional
+    public int majorUpdate(String accessToken, MajorDTO majorDTO) {
+        String memberId = tokenProvider.getUserId(accessToken);
+        System.out.println("memberId = " + memberId);
+
+        MemberDTO memberDTO = memberMapper.findById(memberId);
+        majorDTO.setMemberCode(memberDTO.getMemberCode());
+        int result = memberMapper.updateMajor(majorDTO);
+
+        return result;
+    }
 //    @Transactional
 //    public int findPwd(ChangePwdDTO changePwdDTO) {
 //
