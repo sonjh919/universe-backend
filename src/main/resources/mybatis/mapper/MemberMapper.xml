@@ -140,6 +140,16 @@
           AND MEMBER_EMAIL = #{ memberEmail }
     </update>
 
+    <update id="updateMajor">
+        UPDATE
+            TB_MAJOR A
+        SET A.MAJOR_CONCENTRATION = #{ majorConcentration }
+          , A.MAJOR_KEYWORD = #{ majorKeyword }
+          , A.MAJOR_SPECIALTY = #{ majorSpecialty }
+          , A.MAJOR_HOPE_PATH = #{ majorHopePath }
+        WHERE MEMBER_CODE = #{ memberCode }
+    </update>
+
 
     <update id="deleteMember">
         UPDATE
@@ -149,7 +159,17 @@
           AND MEMBER_EMAIL = #{ memberEmail }
     </update>
 
-
+    <select id="findMajorByCode" resultType="MajorDTO">
+        SELECT
+            MEMBER_CODE
+             , MAJOR
+             , MAJOR_CONCENTRATION
+             , MAJOR_KEYWORD
+             , MAJOR_SPECIALTY
+             , MAJOR_HOPE_PATH
+        FROM TB_MAJOR
+        WHERE MEMBER_CODE = #{ memberCode }
+    </select>
 </mapper>
 
 
