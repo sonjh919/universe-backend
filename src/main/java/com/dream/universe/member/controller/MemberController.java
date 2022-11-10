@@ -26,6 +26,12 @@ public class MemberController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "회원 정보 조회 성공", memberService.findMemberById(accessToken)));
     }
 
+    @GetMapping("/major")
+    public ResponseEntity<ResponseDTO> findMajorById(@RequestHeader(value="Authorization")  String accessToken){
+        System.out.println("학과 정보 조회 API");
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "학과 정보 조회 성공", memberService.findMajorById(accessToken)));
+    }
+
     @PutMapping("/update")
     public ResponseEntity<ResponseDTO> update(@RequestHeader(value="Authorization")  String accessToken, @RequestBody MemberDTO memberDTO){
         System.out.println("회원 정보 수정 API");

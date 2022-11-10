@@ -33,5 +33,7 @@ public interface MemberMapper {
     int updateCap(MemberDTO memberDTO);
 
     int updateMajor(MajorDTO majorDTO);
+
+    MajorDTO findMajorByCode(Long memberCode);
 }
 

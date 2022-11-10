@@ -92,6 +92,18 @@ public class MemberService {
 
         return result;
     }
+
+    public MajorDTO findMajorById(String accessToken) {
+        String memberId = tokenProvider.getUserId(accessToken);
+        System.out.println("memberId = " + memberId);
+
+        MemberDTO memberDTO = memberMapper.findById(memberId);
+
+
+        MajorDTO majorDTO = memberMapper.findMajorByCode(memberDTO.getMemberCode());
+
+        return majorDTO;
+    }
 //    @Transactional
 //    public int findPwd(ChangePwdDTO changePwdDTO) {
 //
