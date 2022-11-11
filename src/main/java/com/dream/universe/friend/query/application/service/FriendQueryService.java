@@ -49,4 +49,9 @@ public class FriendQueryService {
         System.out.println(requestFriend);
         return requestFriend;
     }
+
+    public Long deleteFriendsByCode(long friendCode) {
+        friendQueryDAO.deleteById(friendCode);
+        return friendCode;
+    }
 }
