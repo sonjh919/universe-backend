@@ -7,7 +7,8 @@ import com.dream.universe.jwt.TokenProvider;
 import com.dream.universe.member.dao.MemberMapper;
 import com.dream.universe.member.dto.MemberDTO;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 
 @Service
@@ -39,4 +40,24 @@ public class FriendService {
         return friend.getFriendCode();
     }
 
+    public long result(FriendDTO friendDTO) {
+        Optional<Friend> oFriend = friendDAO.findById(friendDTO.getFriendCode());
+
+        Friend friend = oFriend.get();
+        friend.setFriendCode(friendDTO.getFriendCode());
+        friend.setFriendState(friendDTO.getFriendState());
+
+        System.out.println(friend.getFriendState());
+        if(friend.getFriendState().equals("reject")) {
+            System.out.println("reject");
+            friendDAO.deleteById(friendDTO.getFriendCode());
+            return -1;
+        }
+
+
+        friendDAO.save(friend);
+
+        return friend.getFriendCode();
+
+    }
 }
