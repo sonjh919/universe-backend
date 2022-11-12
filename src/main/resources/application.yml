@@ -4,9 +4,13 @@ server:
 spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@metaverse.ohgiraffers.com:1521/xe
-    username: C##UNIVERSE
-    password: UNIVERSE
+    url: jdbc:oracle:thin:@universe.cobnraaxcbeh.ap-northeast-2.rds.amazonaws.com:1521/ORCL
+    username: universe
+    password: universe
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 jwt:
   secret: asdfjp298pafo1320efqw0udvnh0er0h412r08byfdq9dsvh02143908hfeqwn80fdqs0nfdqs0n412013rq0nqefn08dfas0das730732g86923
@@ -16,3 +20,16 @@ mybatis:
   type-aliases-package: com.dream.universe
   configuration:
     map-underscore-to-camel-case: true
+
+cloud:
+  aws:
+    credentials:
+      access-key: ${s3.accesskey}
+      secret-key: ${s3.secretkey}
+    region:
+      static: ap-northeast-2
+    s3:
+      bucket: ouruniversebucket
+    stack:
+      auto: false
+
