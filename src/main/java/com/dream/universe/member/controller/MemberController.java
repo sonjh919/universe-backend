@@ -2,6 +2,7 @@ package com.dream.universe.member.controller;
 
 import com.dream.universe.common.ResponseDTO;
 import com.dream.universe.jwt.TokenProvider;
+import com.dream.universe.member.dto.ItemDTO;
 import com.dream.universe.member.dto.MajorDTO;
 import com.dream.universe.member.dto.MemberDTO;
 import com.dream.universe.member.service.MemberService;
@@ -30,6 +31,12 @@ public class MemberController {
     public ResponseEntity<ResponseDTO> findMajorById(@RequestHeader(value="Authorization")  String accessToken){
         System.out.println("학과 정보 조회 API");
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "학과 정보 조회 성공", memberService.findMajorById(accessToken)));
+    }
+
+    @GetMapping("/item")
+    public ResponseEntity<ResponseDTO> findItemById(@RequestHeader(value="Authorization")  String accessToken){
+        System.out.println("아이템 조회 API");
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "아이템 정보 조회 성공", memberService.findItemById(accessToken)));
     }
 
     @PutMapping("/update")
@@ -73,6 +80,13 @@ public class MemberController {
         System.out.println("전공정보 수정 API");
         System.out.println("majorDTO = " + majorDTO);
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "전공정보 수정 성공", memberService.majorUpdate(accessToken, majorDTO)));
+    }
+
+    @PutMapping("/item/update")
+    public ResponseEntity<ResponseDTO> itemUpdate(@RequestHeader(value="Authorization")  String accessToken, @RequestBody ItemDTO itemDTO){
+        System.out.println("아이템 수정 API");
+        System.out.println("itemDTO = " + itemDTO);
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "아이템 수정 성공", memberService.itemUpdate(accessToken, itemDTO)));
     }
 
 }

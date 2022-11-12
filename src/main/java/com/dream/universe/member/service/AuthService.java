@@ -5,6 +5,7 @@ import com.dream.universe.exception.DuplicatedMemberIdException;
 import com.dream.universe.exception.LoginFailedException;
 import com.dream.universe.jwt.TokenProvider;
 import com.dream.universe.member.dao.MemberMapper;
+import com.dream.universe.member.dto.ItemDTO;
 import com.dream.universe.member.dto.MajorDTO;
 import com.dream.universe.member.dto.MemberDTO;
 import com.dream.universe.member.dto.TokenDTO;
@@ -34,12 +35,17 @@ public class AuthService {
         MajorDTO majorDTO = new MajorDTO();
         majorDTO.setMajor(memberDTO.getMemberMajor());
 
+        ItemDTO itemDTO = new ItemDTO();
+        itemDTO.setMemberCode(memberDTO.getMemberCode());
+
         System.out.println(majorDTO);
 
         memberDTO.setMemberPassword(passwordEncoder.encode(memberDTO.getPassword()));
 
         int resultMember = memberMapper.insertMember(memberDTO);
         int resultMajor = memberMapper.insertMajor(majorDTO);
+        int resultItem = memberMapper.insertItem(itemDTO);
+
         return memberDTO;
     }
 
