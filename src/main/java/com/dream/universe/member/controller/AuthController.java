@@ -3,20 +3,23 @@ package com.dream.universe.member.controller;
 import com.dream.universe.common.ResponseDTO;
 import com.dream.universe.member.dto.MemberDTO;
 import com.dream.universe.member.service.AuthService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.Member;
 import java.text.ParseException;
+import java.util.Base64;
 import java.util.Enumeration;
 
 @RestController
@@ -65,7 +68,31 @@ public class AuthController {
         byte[] array = idCardImg.getBytes();
         System.out.println("length = " + array.length);
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "이미지 전송 성공", array.length));
+        String cardImgFile = Base64.getEncoder().encodeToString(array);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+        MultiValueMap<String, String> body
+                = new LinkedMultiValueMap<>();
+        body.add("file", cardImgFile);
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity
+                = new HttpEntity<>(body, headers);
+
+        String serverUrl = "http://54.180.154.17:8000/uploadimage/";
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<?> response = restTemplate
+                .postForEntity(serverUrl, requestEntity, String.class);
+
+
+        System.out.println(response.getBody());
+
+        String jsonData = (String) response.getBody();
+        System.out.println(jsonData);
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "이미지 전송 성공", jsonData));
     }
 
     @PutMapping("/login")

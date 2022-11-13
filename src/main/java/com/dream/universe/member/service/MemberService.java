@@ -4,8 +4,10 @@ package com.dream.universe.member.service;
 import com.dream.universe.exception.ChangePwdFailedException;
 import com.dream.universe.jwt.TokenProvider;
 import com.dream.universe.member.dao.MemberMapper;
+import com.dream.universe.member.dto.ItemDTO;
 import com.dream.universe.member.dto.MajorDTO;
 import com.dream.universe.member.dto.MemberDTO;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -93,6 +95,18 @@ public class MemberService {
         return result;
     }
 
+    @Transactional
+    public int itemUpdate(String accessToken, ItemDTO itemDTO) {
+        String memberId = tokenProvider.getUserId(accessToken);
+        System.out.println("memberId = " + memberId);
+
+        MemberDTO memberDTO = memberMapper.findById(memberId);
+        itemDTO.setMemberCode(memberDTO.getMemberCode());
+        int result = memberMapper.updateItem(itemDTO);
+
+        return result;
+    }
+
     public MajorDTO findMajorById(String accessToken) {
         String memberId = tokenProvider.getUserId(accessToken);
         System.out.println("memberId = " + memberId);
@@ -104,6 +118,18 @@ public class MemberService {
 
         return majorDTO;
     }
+
+    public ItemDTO findItemById(String accessToken) {
+        String memberId = tokenProvider.getUserId(accessToken);
+        System.out.println("memberId = " + memberId);
+
+        MemberDTO memberDTO = memberMapper.findById(memberId);
+        ItemDTO itemDTO = memberMapper.findItemByCode(memberDTO.getMemberCode());
+
+        return itemDTO;
+    }
+
+
 //    @Transactional
 //    public int findPwd(ChangePwdDTO changePwdDTO) {
 //
