@@ -23,9 +23,6 @@ mybatis:
 
 cloud:
   aws:
-    credentials:
-      access-key: ${s3.accesskey}
-      secret-key: ${s3.secretkey}
     region:
       static: ap-northeast-2
     s3:
