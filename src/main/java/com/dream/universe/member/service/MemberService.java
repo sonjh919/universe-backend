@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Member;
+
 @Service
 public class MemberService {
 
@@ -78,9 +80,9 @@ public class MemberService {
     }
 
 
-    public String findId(MemberDTO memberDTO) {
-        String memberId = memberMapper.findId(memberDTO);
-        return memberId;
+    public MemberDTO findId(MemberDTO memberDTO) {
+        MemberDTO member = memberMapper.findId(memberDTO);
+        return member;
     }
 
     @Transactional

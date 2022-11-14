@@ -4,6 +4,7 @@ import com.dream.universe.friend.command.application.dao.FriendDAO;
 import com.dream.universe.friend.domain.model.Friend;
 import com.dream.universe.friend.query.application.dao.FriendQueryDAO;
 import com.dream.universe.friend.query.application.dao.FriendQueryMapper;
+import com.dream.universe.friend.query.application.dto.FriendQueryDTO;
 import com.dream.universe.jwt.TokenProvider;
 import com.dream.universe.member.dao.MemberMapper;
 import com.dream.universe.member.dto.MemberDTO;
@@ -34,11 +35,16 @@ public class FriendQueryService {
         String memberId = tokenProvider.getUserId(accessToken);
         MemberDTO member = memberMapper.findById(memberId);
 
-        List<Friend> requestFriend = friendQueryDAO.findAllByMemberCodeAndFriendState(member.getMemberCode(), "request");
+        List<Friend> friends = friendQueryDAO.findAllByMemberCodeAndFriendState(member.getMemberCode(), "request");
 
-        System.out.println(requestFriend);
-        return requestFriend;
+        friends.size();
+        FriendQueryDTO friendQueryDTO = new FriendQueryDTO();
+
+        System.out.println(friends);
+        return friends;
     }
+
+
 
     public List<Friend> findFriendsById(String accessToken) {
         String memberId = tokenProvider.getUserId(accessToken);
