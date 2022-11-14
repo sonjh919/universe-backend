@@ -11,11 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Member;
+
 
 @RestController
 @RequestMapping("/members")
 public class MemberController {
-
     private final MemberService memberService;
     public MemberController(MemberService memberService){
         this.memberService = memberService;
@@ -54,12 +55,10 @@ public class MemberController {
 
     @PostMapping("/findId")
     public ResponseEntity<ResponseDTO> findId(@RequestBody MemberDTO memberDTO){
-        System.out.println("아이디 조회 API");
+        System.out.println("닉네임 조회 API");
         System.out.println("memberDTO = " + memberDTO);
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "아이디 조회 성공", memberService.findId(memberDTO)));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "닉네임 조회 성공", memberService.findId(memberDTO)));
     }
-
-
 
     @PutMapping("/cherry/update")
     public ResponseEntity<ResponseDTO> cherryUpdate(@RequestHeader(value="Authorization")  String accessToken, @RequestBody MemberDTO memberDTO){

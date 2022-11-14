@@ -73,6 +73,15 @@
         AND MEMBER_EMAIL = #{ memberEmail }
     </select>
 
+    <select id="findId" resultType="MemberDTO">
+        SELECT
+            MEMBER_CODE
+             , MEMBER_NICKNAME
+        FROM TB_MEMBER
+        WHERE MEMBER_WITHDRAWAL = 'N'
+        AND MEMBER_CODE = #{ memberCode }
+    </select>
+
     <insert id="insertMember" parameterType="MemberDTO">
     INSERT INTO TB_MEMBER
     (

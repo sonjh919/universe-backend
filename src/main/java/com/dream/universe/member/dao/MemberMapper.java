@@ -25,7 +25,7 @@ public interface MemberMapper {
 
     int deleteMember(String memberId);
 
-    String findId(MemberDTO memberDTO);
+    MemberDTO findId(MemberDTO memberDTO);
 
 
     MemberDTO doubleCheckEmail(String email);
