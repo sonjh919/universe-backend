@@ -73,13 +73,31 @@
         AND MEMBER_EMAIL = #{ memberEmail }
     </select>
 
-    <select id="findId" resultType="MemberDTO">
+    <select id="findId" resultType="MemberInfoDTO">
         SELECT
-            MEMBER_CODE
+            A.MEMBER_CODE
+             , MEMBER_EMAIL
+             , MEMBER_PASSWORD
+             , MEMBER_NAME
+             , MEMBER_PHONE
+             , MEMBER_CAP
+             , MEMBER_CHERRY
              , MEMBER_NICKNAME
-        FROM TB_MEMBER
-        WHERE MEMBER_WITHDRAWAL = 'N'
-        AND MEMBER_CODE = #{ memberCode }
+             , MEMBER_ROLE
+             , MEMBER_WITHDRAWAL
+             , MEMBER_MAJOR
+             , MAJOR_CONCENTRATION
+             , MAJOR_KEYWORD
+             , MAJOR_SPECIALTY
+             , MAJOR_HOPE_PATH
+             , ITEM_HAIR_CODE
+             , ITEM_FACE_CODE
+             , ITEM_CLOTH_CODE
+        FROM TB_MEMBER A, TB_MAJOR B, TB_ITEM C
+        WHERE A.MEMBER_WITHDRAWAL = 'N'
+          AND A.MEMBER_CODE=B.MEMBER_CODE
+          AND B.MEMBER_CODE=C.MEMBER_CODE
+          AND A.MEMBER_CODE = #{ memberCode }
     </select>
 
     <insert id="insertMember" parameterType="MemberDTO">

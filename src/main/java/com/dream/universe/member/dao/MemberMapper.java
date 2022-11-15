@@ -4,6 +4,7 @@ package com.dream.universe.member.dao;
 import com.dream.universe.member.dto.ItemDTO;
 import com.dream.universe.member.dto.MajorDTO;
 import com.dream.universe.member.dto.MemberDTO;
+import com.dream.universe.member.dto.MemberInfoDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Optional;
@@ -25,7 +26,7 @@ public interface MemberMapper {
 
     int deleteMember(String memberId);
 
-    MemberDTO findId(MemberDTO memberDTO);
+    MemberInfoDTO findId(MemberDTO memberDTO);
 
 
     MemberDTO doubleCheckEmail(String email);

@@ -7,6 +7,7 @@ import com.dream.universe.member.dao.MemberMapper;
 import com.dream.universe.member.dto.ItemDTO;
 import com.dream.universe.member.dto.MajorDTO;
 import com.dream.universe.member.dto.MemberDTO;
+import com.dream.universe.member.dto.MemberInfoDTO;
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -80,9 +81,9 @@ public class MemberService {
     }
 
 
-    public MemberDTO findId(MemberDTO memberDTO) {
-        MemberDTO member = memberMapper.findId(memberDTO);
-        return member;
+    public MemberInfoDTO findId(MemberDTO memberDTO) {
+        MemberInfoDTO memberInfo = memberMapper.findId(memberDTO);
+        return memberInfo;
     }
 
     @Transactional
