@@ -35,7 +35,7 @@ public class FriendQueryService {
         String memberId = tokenProvider.getUserId(accessToken);
         MemberDTO member = memberMapper.findById(memberId);
 
-        List<Friend> friends = friendQueryDAO.findAllByMemberCodeAndFriendState(member.getMemberCode(), "request");
+        List<Friend> friends = friendQueryDAO.findAllByFriendMemberCodeAndFriendState(member.getMemberCode(), "request");
 
         friends.size();
         FriendQueryDTO friendQueryDTO = new FriendQueryDTO();
@@ -44,13 +44,11 @@ public class FriendQueryService {
         return friends;
     }
 
-
-
     public List<Friend> findFriendsById(String accessToken) {
         String memberId = tokenProvider.getUserId(accessToken);
         MemberDTO member = memberMapper.findById(memberId);
 
-        List<Friend> requestFriend = friendQueryDAO.findAllByMemberCodeAndFriendState(member.getMemberCode(), "friend");
+        List<Friend> requestFriend = friendQueryDAO.findAllByFriendMemberCodeAndFriendState(member.getMemberCode(), "friend");
 
         System.out.println(requestFriend);
         return requestFriend;

@@ -10,7 +10,7 @@ public interface FriendQueryDAO extends JpaRepository<Friend, Long>{
 
 //    Iterable<Friend> findAllByFriendState(String friendState);
 //    Iterable<Friend> findAllByMemberCode(Long memberCode);
-      List<Friend> findAllByMemberCodeAndFriendState(Long memberCode, String friendState);
+      List<Friend> findAllByFriendMemberCodeAndFriendState(Long memberCode, String friendState);
 
 //    List<Long> findAllById(Long memberId);
 //
