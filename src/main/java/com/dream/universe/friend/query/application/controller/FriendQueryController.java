@@ -1,7 +1,6 @@
 package com.dream.universe.friend.query.application.controller;
 
 import com.dream.universe.common.ResponseDTO;
-import com.dream.universe.friend.command.application.dto.FriendDTO;
 import com.dream.universe.friend.query.application.service.FriendQueryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +26,9 @@ public class FriendQueryController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "친구요청 정보 조회 성공", friendQueryService.findFriendsById(accessToken)));
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDTO> DeleteFriendById(@RequestBody FriendDTO friendDTO){
+    @DeleteMapping("/delete/{friendCode}")
+    public ResponseEntity<ResponseDTO> deleteFriend(@PathVariable Long friendCode){
         System.out.println("친구 삭제 API");
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "친구삭제 성공", friendQueryService.deleteFriendsByCode(friendDTO.getFriendCode())));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "친구삭제 성공", friendQueryService.deleteFriendsByCode(friendCode)));
     }
 }
