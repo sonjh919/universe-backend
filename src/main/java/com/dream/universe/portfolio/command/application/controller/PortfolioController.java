@@ -1,4 +1,4 @@
-package com.dream.universe.portfolio.command.application.controlloer;
+package com.dream.universe.portfolio.command.application.controller;
 
 import com.dream.universe.common.ResponseDTO;
 import com.dream.universe.portfolio.command.application.dto.PortfolioDTO;
