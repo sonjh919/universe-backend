@@ -23,16 +23,22 @@ public class SpaceService {
         this.tokenProvider = tokenProvider;
     }
 
-    public long insert(String accessToken, SpaceDTO spaceDTO) {
+    public Long insert(String accessToken, SpaceDTO spaceDTO) {
         String memberId = tokenProvider.getUserId(accessToken);
-        MemberDTO member = memberMapper.findById(memberId);
+        MemberDTO memberDTO = memberMapper.findById(memberId);
 
         Space space = new Space();
-        // 추가
+        space.setMemberCode(memberDTO.getMemberCode());
+        space.setSpaceMapinfo(spaceDTO.getSpaceMapinfo());
+        space.setSpaceName("temp");
+        space.setSpaceIntro("temp");
+        space.setSpaceLike(0);
+        space.setSpaceReport(0);
+        space.setSpaceWarning(0);
+
         spaceDAO.save(space);
 
         return space.getSpaceCode();
-
     }
 
     public long insertMap(String accessToken, SpaceDTO spaceDTO) {
