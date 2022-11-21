@@ -9,8 +9,8 @@ spring:
     password: universe
   servlet:
     multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
+      max-file-size: 1GB
+      max-request-size: 1GB
 
 jwt:
   secret: asdfjp298pafo1320efqw0udvnh0er0h412r08byfdq9dsvh02143908hfeqwn80fdqs0nfdqs0n412013rq0nqefn08dfas0das730732g86923
