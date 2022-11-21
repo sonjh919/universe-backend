@@ -6,6 +6,8 @@ public class SpaceDTO {
     private long memberCode;
     private String spaceName;
     private String spaceIntro;
+
+    private String spaceType;
     private String spacePassword;
     private String spaceMapinfo;
     private long spaceLike;
@@ -18,11 +20,12 @@ public class SpaceDTO {
 
     public SpaceDTO(){};
 
-    public SpaceDTO(long spaceCode, long memberCode, String spaceName, String spaceIntro, String spacePassword, String spaceMapinfo, long spaceLike, String spaceThumbnail, long spaceReport, long spaceWarning, String spaceTag1, String spaceTag2, String spaceTag3) {
+    public SpaceDTO(long spaceCode, long memberCode, String spaceName, String spaceIntro, String spaceType, String spacePassword, String spaceMapinfo, long spaceLike, String spaceThumbnail, long spaceReport, long spaceWarning, String spaceTag1, String spaceTag2, String spaceTag3) {
         this.spaceCode = spaceCode;
         this.memberCode = memberCode;
         this.spaceName = spaceName;
         this.spaceIntro = spaceIntro;
+        this.spaceType = spaceType;
         this.spacePassword = spacePassword;
         this.spaceMapinfo = spaceMapinfo;
         this.spaceLike = spaceLike;
@@ -64,6 +67,14 @@ public class SpaceDTO {
 
     public void setSpaceIntro(String spaceIntro) {
         this.spaceIntro = spaceIntro;
+    }
+
+    public String getSpaceType() {
+        return spaceType;
+    }
+
+    public void setSpaceType(String spaceType) {
+        this.spaceType = spaceType;
     }
 
     public String getSpacePassword() {
@@ -145,6 +156,7 @@ public class SpaceDTO {
                 ", memberCode=" + memberCode +
                 ", spaceName='" + spaceName + '\'' +
                 ", spaceIntro='" + spaceIntro + '\'' +
+                ", spaceType='" + spaceType + '\'' +
                 ", spacePassword='" + spacePassword + '\'' +
                 ", spaceMapinfo='" + spaceMapinfo + '\'' +
                 ", spaceLike=" + spaceLike +
