@@ -91,4 +91,15 @@ public class SpaceService {
         spaceDAO.deleteById(spaceCode);
         return spaceCode;
     }
+
+    public long likeUpdate(SpaceDTO spaceDTO) {
+        Optional<Space> oSpace = spaceDAO.findById(spaceDTO.getSpaceCode());
+
+        Space space = oSpace.get();
+        space.setSpaceLike(space.getSpaceLike()+spaceDTO.getSpaceLike());
+
+        spaceDAO.save(space);
+
+        return space.getSpaceLike();
+    }
 }

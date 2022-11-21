@@ -52,6 +52,13 @@ public class SpaceController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "스페이스 정보 추가 성공", spaceService.spaceInsert(spaceDTO)));
     }
 
+    @PutMapping("/like/update")
+    public ResponseEntity<ResponseDTO> uploadLike(@RequestBody SpaceDTO spaceDTO) {
+        System.out.println("스페이스 등록 API");
+        System.out.println("spaceDTO = " + spaceDTO);
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "좋아요 수정 성공", spaceService.likeUpdate(spaceDTO)));
+    }
+
     @PutMapping("/thumbnails/upload/{spaceCode}")
     public ResponseEntity<ResponseDTO> uploadThumbnail(
             @RequestPart(value = "file") MultipartFile multipartFile,
