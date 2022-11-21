@@ -26,7 +26,7 @@ public class SpaceService {
         this.tokenProvider = tokenProvider;
     }
 
-    public Long mapInsert(String accessToken, SpaceDTO spaceDTO) {
+    public Space mapInsert(String accessToken, SpaceDTO spaceDTO) {
         String memberId = tokenProvider.getUserId(accessToken);
         MemberDTO memberDTO = memberMapper.findById(memberId);
 
@@ -41,7 +41,7 @@ public class SpaceService {
 
         spaceDAO.save(space);
 
-        return space.getSpaceCode();
+        return space;
     }
 
     public long spaceInsert(SpaceDTO spaceDTO) {
