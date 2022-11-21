@@ -44,7 +44,6 @@ public class FriendService {
         Optional<Friend> oFriend = friendDAO.findById(friendDTO.getFriendCode());
 
         Friend friend = oFriend.get();
-        friend.setFriendCode(friendDTO.getFriendCode());
         friend.setFriendState(friendDTO.getFriendState());
 
         System.out.println(friend.getFriendState());
