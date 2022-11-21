@@ -30,6 +30,9 @@ public class Space {
     @Column(name = "SPACE_INTRO")
     private String spaceIntro;
 
+    @Column(name = "SPACE_TYPE")
+    private String spaceType;
+
     @Column(name = "SPACE_PASSWORD")
     private String spacePassword;
 
@@ -59,11 +62,12 @@ public class Space {
 
     public Space(){};
 
-    public Space(long spaceCode, long memberCode, String spaceName, String spaceIntro, String spacePassword, String spaceMapinfo, long spaceLike, String spaceThumbnail, long spaceReport, long spaceWarning, String spaceTag1, String spaceTag2, String spaceTag3) {
+    public Space(long spaceCode, long memberCode, String spaceName, String spaceIntro, String spaceType, String spacePassword, String spaceMapinfo, long spaceLike, String spaceThumbnail, long spaceReport, long spaceWarning, String spaceTag1, String spaceTag2, String spaceTag3) {
         this.spaceCode = spaceCode;
         this.memberCode = memberCode;
         this.spaceName = spaceName;
         this.spaceIntro = spaceIntro;
+        this.spaceType = spaceType;
         this.spacePassword = spacePassword;
         this.spaceMapinfo = spaceMapinfo;
         this.spaceLike = spaceLike;
@@ -105,6 +109,14 @@ public class Space {
 
     public void setSpaceIntro(String spaceIntro) {
         this.spaceIntro = spaceIntro;
+    }
+
+    public String getSpaceType() {
+        return spaceType;
+    }
+
+    public void setSpaceType(String spaceType) {
+        this.spaceType = spaceType;
     }
 
     public String getSpacePassword() {
@@ -186,6 +198,7 @@ public class Space {
                 ", memberCode=" + memberCode +
                 ", spaceName='" + spaceName + '\'' +
                 ", spaceIntro='" + spaceIntro + '\'' +
+                ", spaceType='" + spaceType + '\'' +
                 ", spacePassword='" + spacePassword + '\'' +
                 ", spaceMapinfo='" + spaceMapinfo + '\'' +
                 ", spaceLike=" + spaceLike +

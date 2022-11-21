@@ -26,7 +26,7 @@ public class SpaceService {
         this.tokenProvider = tokenProvider;
     }
 
-    public Long mapInsert(String accessToken, SpaceDTO spaceDTO) {
+    public Space mapInsert(String accessToken, SpaceDTO spaceDTO) {
         String memberId = tokenProvider.getUserId(accessToken);
         MemberDTO memberDTO = memberMapper.findById(memberId);
 
@@ -35,13 +35,25 @@ public class SpaceService {
         space.setSpaceMapinfo(spaceDTO.getSpaceMapinfo());
         space.setSpaceName("temp");
         space.setSpaceIntro("temp");
+        space.setSpaceType("temp");
+        space.setSpaceThumbnail("temp");
         space.setSpaceLike(0);
         space.setSpaceReport(0);
         space.setSpaceWarning(0);
 
         spaceDAO.save(space);
 
-        return space.getSpaceCode();
+        return space;
+    }
+    public String mapUpdate(SpaceDTO spaceDTO) {
+        Optional<Space> oSpace = spaceDAO.findById(spaceDTO.getSpaceCode());
+
+        Space space = oSpace.get();
+        space.setSpaceMapinfo(spaceDTO.getSpaceMapinfo());
+
+        spaceDAO.save(space);
+
+        return space.getSpaceMapinfo();
     }
 
     public long spaceInsert(SpaceDTO spaceDTO) {
@@ -51,6 +63,7 @@ public class SpaceService {
         Space space = oSpace.get();
         space.setSpaceName(spaceDTO.getSpaceName());
         space.setSpaceIntro(spaceDTO.getSpaceIntro());
+        space.setSpaceType(spaceDTO.getSpaceType());
         space.setSpacePassword(spaceDTO.getSpacePassword());
         space.setSpaceTag1(spaceDTO.getSpaceTag1());
         space.setSpaceTag2(spaceDTO.getSpaceTag2());
@@ -72,4 +85,6 @@ public class SpaceService {
 
         return space.getSpaceThumbnail();
     }
+
+
 }

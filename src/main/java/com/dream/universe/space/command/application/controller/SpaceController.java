@@ -34,6 +34,17 @@ public class SpaceController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "맵 추가 성공", spaceService.mapInsert(accessToken, spaceDTO)));
     }
 
+    @PutMapping("/maps/update/{spaceCode}")
+    public ResponseEntity<ResponseDTO> updateMap(
+            @RequestPart(value = "file") MultipartFile multipartFile,
+            @PathVariable Long spaceCode){
+        System.out.println("맵 수정 API");
+        SpaceDTO spaceDTO = new SpaceDTO();
+        spaceDTO.setSpaceCode(spaceCode);
+        spaceDTO.setSpaceMapinfo(spaceS3Service.uploadFileV1(multipartFile));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "맵 수정 성공", spaceService.mapUpdate(spaceDTO)));
+    }
+
     @PutMapping("/upload")
     public ResponseEntity<ResponseDTO> uploadSpaceInfo(@RequestBody SpaceDTO spaceDTO) {
         System.out.println("스페이스 등록 API");
