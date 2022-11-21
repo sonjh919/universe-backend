@@ -54,8 +54,13 @@ public class FriendService {
             return -1;
         }
 
+        Friend friend2 = new Friend();
+        friend2.setMemberCode(friend.getFriendMemberCode());
+        friend2.setFriendMemberCode(friend.getMemberCode());
+        friend2.setFriendState("friend");
 
         friendDAO.save(friend);
+        friendDAO.save(friend2);
 
         return friend.getFriendCode();
 
