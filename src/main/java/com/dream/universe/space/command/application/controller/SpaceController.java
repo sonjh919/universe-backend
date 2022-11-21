@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+
 
 @RestController
 @RequestMapping("/spaces")
@@ -61,6 +61,12 @@ public class SpaceController {
         spaceDTO.setSpaceCode(spaceCode);
         spaceDTO.setSpaceThumbnail(spaceS3Service.uploadFileV1(multipartFile));
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "썸네일 추가 성공", spaceService.thumbnailInsert(spaceDTO)));
+    }
+
+    @DeleteMapping("/delete/{spaceCode}")
+    public ResponseEntity<ResponseDTO> deleteSpace(@PathVariable Long spaceCode){
+        System.out.println("스페이스 삭제 API");
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "스페이스 삭제 성공", spaceService.delete(spaceCode)));
     }
 
 
