@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/auths/**").permitAll()
                     .antMatchers("/members/**").permitAll()
                     .antMatchers("/friends/**").permitAll()
-                    .antMatchers("/maps/**").permitAll()
+                    .antMatchers("/spaces/**").permitAll()
                     .antMatchers("/portfolios/**").permitAll()
                     .antMatchers("/photos/**").permitAll()
                     .antMatchers("/**").hasAnyRole("ROLE_MEMBER", "ROLE_MEMBER")

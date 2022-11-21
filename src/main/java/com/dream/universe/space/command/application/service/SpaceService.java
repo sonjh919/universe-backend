@@ -9,6 +9,9 @@ import com.dream.universe.space.command.application.dto.SpaceDTO;
 import com.dream.universe.space.domain.model.Space;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 @Service
 public class SpaceService {
 
@@ -23,27 +26,50 @@ public class SpaceService {
         this.tokenProvider = tokenProvider;
     }
 
-    public long insert(String accessToken, SpaceDTO spaceDTO) {
+    public Long mapInsert(String accessToken, SpaceDTO spaceDTO) {
         String memberId = tokenProvider.getUserId(accessToken);
-        MemberDTO member = memberMapper.findById(memberId);
+        MemberDTO memberDTO = memberMapper.findById(memberId);
 
         Space space = new Space();
-        // 추가
+        space.setMemberCode(memberDTO.getMemberCode());
+        space.setSpaceMapinfo(spaceDTO.getSpaceMapinfo());
+        space.setSpaceName("temp");
+        space.setSpaceIntro("temp");
+        space.setSpaceLike(0);
+        space.setSpaceReport(0);
+        space.setSpaceWarning(0);
+
+        spaceDAO.save(space);
+
+        return space.getSpaceCode();
+    }
+
+    public long spaceInsert(SpaceDTO spaceDTO) {
+
+        Optional<Space> oSpace = spaceDAO.findById(spaceDTO.getSpaceCode());
+
+        Space space = oSpace.get();
+        space.setSpaceName(spaceDTO.getSpaceName());
+        space.setSpaceIntro(spaceDTO.getSpaceIntro());
+        space.setSpacePassword(spaceDTO.getSpacePassword());
+        space.setSpaceTag1(spaceDTO.getSpaceTag1());
+        space.setSpaceTag2(spaceDTO.getSpaceTag2());
+        space.setSpaceTag3(spaceDTO.getSpaceTag3());
+
         spaceDAO.save(space);
 
         return space.getSpaceCode();
 
     }
 
-    public long insertMap(String accessToken, SpaceDTO spaceDTO) {
-        String memberId = tokenProvider.getUserId(accessToken);
-        MemberDTO member = memberMapper.findById(memberId);
+    public String thumbnailInsert(SpaceDTO spaceDTO) {
+        Optional<Space> oSpace = spaceDAO.findById(spaceDTO.getSpaceCode());
 
-        Space space = new Space();
-        // 추가
+        Space space = oSpace.get();
+        space.setSpaceThumbnail(spaceDTO.getSpaceThumbnail());
+
         spaceDAO.save(space);
 
-        return space.getSpaceCode();
-
+        return space.getSpaceThumbnail();
     }
 }
