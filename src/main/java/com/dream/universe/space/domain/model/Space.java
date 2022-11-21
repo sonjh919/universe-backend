@@ -31,7 +31,7 @@ public class Space {
     private String spaceIntro;
 
     @Column(name = "SPACE_PASSWORD")
-    private String friendState;
+    private String spacePassword;
 
     @Column(name = "SPACE_MAPINFO")
     private String spaceMapinfo;
@@ -49,22 +49,22 @@ public class Space {
     private long spaceWarning;
 
     @Column(name = "SPACE_TAG1")
-    private long spaceTag1;
+    private String spaceTag1;
 
     @Column(name = "SPACE_TAG2")
-    private long spaceTag2;
+    private String spaceTag2;
 
     @Column(name = "SPACE_TAG3")
-    private long spaceTag3;
+    private String spaceTag3;
 
     public Space(){};
 
-    public Space(long spaceCode, long memberCode, String spaceName, String spaceIntro, String friendState, String spaceMapinfo, long spaceLike, String spaceThumbnail, long spaceReport, long spaceWarning, long spaceTag1, long spaceTag2, long spaceTag3) {
+    public Space(long spaceCode, long memberCode, String spaceName, String spaceIntro, String spacePassword, String spaceMapinfo, long spaceLike, String spaceThumbnail, long spaceReport, long spaceWarning, String spaceTag1, String spaceTag2, String spaceTag3) {
         this.spaceCode = spaceCode;
         this.memberCode = memberCode;
         this.spaceName = spaceName;
         this.spaceIntro = spaceIntro;
-        this.friendState = friendState;
+        this.spacePassword = spacePassword;
         this.spaceMapinfo = spaceMapinfo;
         this.spaceLike = spaceLike;
         this.spaceThumbnail = spaceThumbnail;
@@ -107,12 +107,12 @@ public class Space {
         this.spaceIntro = spaceIntro;
     }
 
-    public String getFriendState() {
-        return friendState;
+    public String getSpacePassword() {
+        return spacePassword;
     }
 
-    public void setFriendState(String friendState) {
-        this.friendState = friendState;
+    public void setSpacePassword(String spacePassword) {
+        this.spacePassword = spacePassword;
     }
 
     public String getSpaceMapinfo() {
@@ -155,27 +155,27 @@ public class Space {
         this.spaceWarning = spaceWarning;
     }
 
-    public long getSpaceTag1() {
+    public String getSpaceTag1() {
         return spaceTag1;
     }
 
-    public void setSpaceTag1(long spaceTag1) {
+    public void setSpaceTag1(String spaceTag1) {
         this.spaceTag1 = spaceTag1;
     }
 
-    public long getSpaceTag2() {
+    public String getSpaceTag2() {
         return spaceTag2;
     }
 
-    public void setSpaceTag2(long spaceTag2) {
+    public void setSpaceTag2(String spaceTag2) {
         this.spaceTag2 = spaceTag2;
     }
 
-    public long getSpaceTag3() {
+    public String getSpaceTag3() {
         return spaceTag3;
     }
 
-    public void setSpaceTag3(long spaceTag3) {
+    public void setSpaceTag3(String spaceTag3) {
         this.spaceTag3 = spaceTag3;
     }
 
@@ -186,15 +186,15 @@ public class Space {
                 ", memberCode=" + memberCode +
                 ", spaceName='" + spaceName + '\'' +
                 ", spaceIntro='" + spaceIntro + '\'' +
-                ", friendState='" + friendState + '\'' +
+                ", spacePassword='" + spacePassword + '\'' +
                 ", spaceMapinfo='" + spaceMapinfo + '\'' +
                 ", spaceLike=" + spaceLike +
                 ", spaceThumbnail='" + spaceThumbnail + '\'' +
                 ", spaceReport=" + spaceReport +
                 ", spaceWarning=" + spaceWarning +
-                ", spaceTag1=" + spaceTag1 +
-                ", spaceTag2=" + spaceTag2 +
-                ", spaceTag3=" + spaceTag3 +
+                ", spaceTag1='" + spaceTag1 + '\'' +
+                ", spaceTag2='" + spaceTag2 + '\'' +
+                ", spaceTag3='" + spaceTag3 + '\'' +
                 '}';
     }
 }

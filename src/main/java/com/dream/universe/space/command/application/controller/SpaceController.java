@@ -31,15 +31,26 @@ public class SpaceController {
         System.out.println("맵 등록 API");
         SpaceDTO spaceDTO = new SpaceDTO();
         spaceDTO.setSpaceMapinfo(spaceS3Service.uploadFileV1(multipartFile));
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "맵 추가 성공", spaceService.insert(accessToken, spaceDTO)));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "맵 추가 성공", spaceService.mapInsert(accessToken, spaceDTO)));
     }
 
-//    @PutMapping("/upload")
-//    public ResponseEntity<ResponseDTO> insert(@RequestHeader(value = "Authorization") String accessToken, @RequestBody SpaceDTO spaceDTO) {
-//        System.out.println("스페이스 등록 API");
-//        System.out.println("spaceDTO = " + spaceDTO);
-//        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "친구요청 성공", spaceService.insert(accessToken, spaceDTO)));
-//    }
+    @PutMapping("/upload")
+    public ResponseEntity<ResponseDTO> uploadSpaceInfo(@RequestBody SpaceDTO spaceDTO) {
+        System.out.println("스페이스 등록 API");
+        System.out.println("spaceDTO = " + spaceDTO);
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "스페이스 정보 추가 성공", spaceService.spaceInsert(spaceDTO)));
+    }
+
+    @PutMapping("/thumbnails/upload/{spaceCode}")
+    public ResponseEntity<ResponseDTO> uploadThumbnail(
+            @RequestPart(value = "file") MultipartFile multipartFile,
+            @PathVariable Long spaceCode){
+        System.out.println("썸네일 등록 API");
+        SpaceDTO spaceDTO = new SpaceDTO();
+        spaceDTO.setSpaceCode(spaceCode);
+        spaceDTO.setSpaceThumbnail(spaceS3Service.uploadFileV1(multipartFile));
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "썸네일 추가 성공", spaceService.thumbnailInsert(spaceDTO)));
+    }
 
 
 }

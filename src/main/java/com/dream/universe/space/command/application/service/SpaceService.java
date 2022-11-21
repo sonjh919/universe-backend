@@ -9,6 +9,9 @@ import com.dream.universe.space.command.application.dto.SpaceDTO;
 import com.dream.universe.space.domain.model.Space;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 @Service
 public class SpaceService {
 
@@ -23,7 +26,7 @@ public class SpaceService {
         this.tokenProvider = tokenProvider;
     }
 
-    public Long insert(String accessToken, SpaceDTO spaceDTO) {
+    public Long mapInsert(String accessToken, SpaceDTO spaceDTO) {
         String memberId = tokenProvider.getUserId(accessToken);
         MemberDTO memberDTO = memberMapper.findById(memberId);
 
@@ -41,15 +44,32 @@ public class SpaceService {
         return space.getSpaceCode();
     }
 
-    public long insertMap(String accessToken, SpaceDTO spaceDTO) {
-        String memberId = tokenProvider.getUserId(accessToken);
-        MemberDTO member = memberMapper.findById(memberId);
+    public long spaceInsert(SpaceDTO spaceDTO) {
 
-        Space space = new Space();
-        // 추가
+        Optional<Space> oSpace = spaceDAO.findById(spaceDTO.getSpaceCode());
+
+        Space space = oSpace.get();
+        space.setSpaceName(spaceDTO.getSpaceName());
+        space.setSpaceIntro(spaceDTO.getSpaceIntro());
+        space.setSpacePassword(spaceDTO.getSpacePassword());
+        space.setSpaceTag1(spaceDTO.getSpaceTag1());
+        space.setSpaceTag2(spaceDTO.getSpaceTag2());
+        space.setSpaceTag3(spaceDTO.getSpaceTag3());
+
         spaceDAO.save(space);
 
         return space.getSpaceCode();
 
+    }
+
+    public String thumbnailInsert(SpaceDTO spaceDTO) {
+        Optional<Space> oSpace = spaceDAO.findById(spaceDTO.getSpaceCode());
+
+        Space space = oSpace.get();
+        space.setSpaceThumbnail(spaceDTO.getSpaceThumbnail());
+
+        spaceDAO.save(space);
+
+        return space.getSpaceThumbnail();
     }
 }

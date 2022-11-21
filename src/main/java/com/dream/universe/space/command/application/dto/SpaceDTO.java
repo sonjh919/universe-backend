@@ -12,10 +12,13 @@ public class SpaceDTO {
     private String spaceThumbnail;
     private long spaceReport;
     private long spaceWarning;
+    private String spaceTag1;
+    private String spaceTag2;
+    private String spaceTag3;
 
     public SpaceDTO(){};
 
-    public SpaceDTO(long spaceCode, long memberCode, String spaceName, String spaceIntro, String spacePassword, String spaceMapinfo, long spaceLike, String spaceThumbnail, long spaceReport, long spaceWarning) {
+    public SpaceDTO(long spaceCode, long memberCode, String spaceName, String spaceIntro, String spacePassword, String spaceMapinfo, long spaceLike, String spaceThumbnail, long spaceReport, long spaceWarning, String spaceTag1, String spaceTag2, String spaceTag3) {
         this.spaceCode = spaceCode;
         this.memberCode = memberCode;
         this.spaceName = spaceName;
@@ -26,6 +29,9 @@ public class SpaceDTO {
         this.spaceThumbnail = spaceThumbnail;
         this.spaceReport = spaceReport;
         this.spaceWarning = spaceWarning;
+        this.spaceTag1 = spaceTag1;
+        this.spaceTag2 = spaceTag2;
+        this.spaceTag3 = spaceTag3;
     }
 
     public long getSpaceCode() {
@@ -108,6 +114,30 @@ public class SpaceDTO {
         this.spaceWarning = spaceWarning;
     }
 
+    public String getSpaceTag1() {
+        return spaceTag1;
+    }
+
+    public void setSpaceTag1(String spaceTag1) {
+        this.spaceTag1 = spaceTag1;
+    }
+
+    public String getSpaceTag2() {
+        return spaceTag2;
+    }
+
+    public void setSpaceTag2(String spaceTag2) {
+        this.spaceTag2 = spaceTag2;
+    }
+
+    public String getSpaceTag3() {
+        return spaceTag3;
+    }
+
+    public void setSpaceTag3(String spaceTag3) {
+        this.spaceTag3 = spaceTag3;
+    }
+
     @Override
     public String toString() {
         return "SpaceDTO{" +
@@ -121,6 +151,9 @@ public class SpaceDTO {
                 ", spaceThumbnail='" + spaceThumbnail + '\'' +
                 ", spaceReport=" + spaceReport +
                 ", spaceWarning=" + spaceWarning +
+                ", spaceTag1='" + spaceTag1 + '\'' +
+                ", spaceTag2='" + spaceTag2 + '\'' +
+                ", spaceTag3='" + spaceTag3 + '\'' +
                 '}';
     }
 }
