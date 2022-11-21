@@ -1,6 +1,6 @@
 package com.dream.universe.space.command.application.service;
 
-import com.dream.universe.friend.command.application.dao.FriendDAO;
+
 import com.dream.universe.jwt.TokenProvider;
 import com.dream.universe.member.dao.MemberMapper;
 import com.dream.universe.member.dto.MemberDTO;
@@ -87,4 +87,19 @@ public class SpaceService {
     }
 
 
+    public Long delete(long spaceCode) {
+        spaceDAO.deleteById(spaceCode);
+        return spaceCode;
+    }
+
+    public long likeUpdate(SpaceDTO spaceDTO) {
+        Optional<Space> oSpace = spaceDAO.findById(spaceDTO.getSpaceCode());
+
+        Space space = oSpace.get();
+        space.setSpaceLike(space.getSpaceLike()+spaceDTO.getSpaceLike());
+
+        spaceDAO.save(space);
+
+        return space.getSpaceLike();
+    }
 }

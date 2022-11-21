@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+
 
 @RestController
 @RequestMapping("/spaces")
@@ -52,6 +52,13 @@ public class SpaceController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "스페이스 정보 추가 성공", spaceService.spaceInsert(spaceDTO)));
     }
 
+    @PutMapping("/like/update")
+    public ResponseEntity<ResponseDTO> uploadLike(@RequestBody SpaceDTO spaceDTO) {
+        System.out.println("스페이스 등록 API");
+        System.out.println("spaceDTO = " + spaceDTO);
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "좋아요 수정 성공", spaceService.likeUpdate(spaceDTO)));
+    }
+
     @PutMapping("/thumbnails/upload/{spaceCode}")
     public ResponseEntity<ResponseDTO> uploadThumbnail(
             @RequestPart(value = "file") MultipartFile multipartFile,
@@ -61,6 +68,12 @@ public class SpaceController {
         spaceDTO.setSpaceCode(spaceCode);
         spaceDTO.setSpaceThumbnail(spaceS3Service.uploadFileV1(multipartFile));
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "썸네일 추가 성공", spaceService.thumbnailInsert(spaceDTO)));
+    }
+
+    @DeleteMapping("/delete/{spaceCode}")
+    public ResponseEntity<ResponseDTO> deleteSpace(@PathVariable Long spaceCode){
+        System.out.println("스페이스 삭제 API");
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "스페이스 삭제 성공", spaceService.delete(spaceCode)));
     }
 
 
