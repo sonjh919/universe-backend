@@ -45,6 +45,16 @@ public class SpaceService {
 
         return space;
     }
+    public String mapUpdate(SpaceDTO spaceDTO) {
+        Optional<Space> oSpace = spaceDAO.findById(spaceDTO.getSpaceCode());
+
+        Space space = oSpace.get();
+        space.setSpaceMapinfo(spaceDTO.getSpaceMapinfo());
+
+        spaceDAO.save(space);
+
+        return space.getSpaceMapinfo();
+    }
 
     public long spaceInsert(SpaceDTO spaceDTO) {
 
@@ -75,4 +85,6 @@ public class SpaceService {
 
         return space.getSpaceThumbnail();
     }
+
+
 }
