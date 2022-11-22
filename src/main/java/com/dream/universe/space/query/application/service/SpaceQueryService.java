@@ -5,6 +5,7 @@ import com.dream.universe.member.dao.MemberMapper;
 import com.dream.universe.member.dto.MemberDTO;
 import com.dream.universe.space.domain.model.Space;
 import com.dream.universe.space.query.application.dao.SpaceQueryDAO;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +29,20 @@ public class SpaceQueryService {
 
         List<Space> space = spaceQueryDAO.findAllByMemberCode(member.getMemberCode());
 
+        System.out.println("space = " + space);
+        return space;
+    }
+
+    public List<Space> findAllRecommend() {
+        List<Space> space = spaceQueryDAO.findAll(Sort.by(Sort.Direction.DESC, "spaceLike","spaceBookmark"));
+
+        if(space.size()>11){
+            int i=space.size()-1;
+            while(i>11){
+                space.remove(i);
+                i--;
+            }
+        }
         System.out.println("space = " + space);
         return space;
     }

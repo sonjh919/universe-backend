@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface SpaceQueryDAO extends JpaRepository<Space, Long> {
     List<Space> findAllByMemberCode(Long memberCode);
+
+//    List<Space> findAllByOrderByLike();
 }
