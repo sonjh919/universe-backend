@@ -59,8 +59,8 @@ public class SpaceController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "좋아요 수정 성공", spaceService.likeUpdate(spaceDTO)));
     }
 
-//    @PostMapping("/thumbnails/upload/{spaceCode}")
-//    public ResponseEntity<ResponseDTO> uploadThumbnail(
+//    @PostMapping("/thumbnails/upload2/{spaceCode}")
+//    public ResponseEntity<ResponseDTO> uploadThumbnail2(
 //            @RequestPart(value = "file") MultipartFile multipartFile,
 //            @PathVariable Long spaceCode){
 //        System.out.println("썸네일 등록 API");
@@ -73,10 +73,10 @@ public class SpaceController {
     @PostMapping("/thumbnails/upload")
     public ResponseEntity<ResponseDTO> uploadThumbnail(
             @RequestPart(value = "file") MultipartFile multipartFile,
-            @RequestHeader(value= "spaceCode") Long spaceCode){
+            @RequestHeader(value= "spaceCode") String spaceCode){
         System.out.println("썸네일 등록 API");
         SpaceDTO spaceDTO = new SpaceDTO();
-        spaceDTO.setSpaceCode(spaceCode);
+        spaceDTO.setSpaceCode(Long.parseLong(spaceCode));
         spaceDTO.setSpaceThumbnail(spaceS3Service.uploadFileV1(multipartFile));
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "썸네일 추가 성공", spaceService.thumbnailInsert(spaceDTO)));
     }
