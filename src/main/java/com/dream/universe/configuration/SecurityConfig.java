@@ -67,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/portfolios/**").permitAll()
                     .antMatchers("/photos/**").permitAll()
                     .antMatchers("/bookmarks/**").permitAll()
+                    .antMatchers("/likes/**").permitAll()
                     .antMatchers("/**").hasAnyRole("ROLE_MEMBER", "ROLE_MEMBER")
                 .and()
                 .cors()
