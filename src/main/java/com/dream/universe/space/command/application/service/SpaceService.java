@@ -38,6 +38,7 @@ public class SpaceService {
         space.setSpaceType("temp");
         space.setSpaceThumbnail("temp");
         space.setSpaceLike(0);
+        space.setSpaceBookmark(0);
         space.setSpaceReport(0);
         space.setSpaceWarning(0);
 

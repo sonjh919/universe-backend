@@ -11,6 +11,7 @@ public class SpaceDTO {
     private String spacePassword;
     private String spaceMapinfo;
     private long spaceLike;
+    private long spaceBookmark;
     private String spaceThumbnail;
     private long spaceReport;
     private long spaceWarning;
@@ -20,7 +21,7 @@ public class SpaceDTO {
 
     public SpaceDTO(){};
 
-    public SpaceDTO(long spaceCode, long memberCode, String spaceName, String spaceIntro, String spaceType, String spacePassword, String spaceMapinfo, long spaceLike, String spaceThumbnail, long spaceReport, long spaceWarning, String spaceTag1, String spaceTag2, String spaceTag3) {
+    public SpaceDTO(long spaceCode, long memberCode, String spaceName, String spaceIntro, String spaceType, String spacePassword, String spaceMapinfo, long spaceLike, long spaceBookmark, String spaceThumbnail, long spaceReport, long spaceWarning, String spaceTag1, String spaceTag2, String spaceTag3) {
         this.spaceCode = spaceCode;
         this.memberCode = memberCode;
         this.spaceName = spaceName;
@@ -29,6 +30,7 @@ public class SpaceDTO {
         this.spacePassword = spacePassword;
         this.spaceMapinfo = spaceMapinfo;
         this.spaceLike = spaceLike;
+        this.spaceBookmark = spaceBookmark;
         this.spaceThumbnail = spaceThumbnail;
         this.spaceReport = spaceReport;
         this.spaceWarning = spaceWarning;
@@ -101,6 +103,14 @@ public class SpaceDTO {
         this.spaceLike = spaceLike;
     }
 
+    public long getSpaceBookmark() {
+        return spaceBookmark;
+    }
+
+    public void setSpaceBookmark(long spaceBookmark) {
+        this.spaceBookmark = spaceBookmark;
+    }
+
     public String getSpaceThumbnail() {
         return spaceThumbnail;
     }
@@ -160,6 +170,7 @@ public class SpaceDTO {
                 ", spacePassword='" + spacePassword + '\'' +
                 ", spaceMapinfo='" + spaceMapinfo + '\'' +
                 ", spaceLike=" + spaceLike +
+                ", spaceBookmark=" + spaceBookmark +
                 ", spaceThumbnail='" + spaceThumbnail + '\'' +
                 ", spaceReport=" + spaceReport +
                 ", spaceWarning=" + spaceWarning +
