@@ -34,7 +34,7 @@ public class SpaceController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "맵 추가 성공", spaceService.mapInsert(accessToken, spaceDTO)));
     }
 
-    @PutMapping("/maps/update/{spaceCode}")
+    @PostMapping("/maps/update/{spaceCode}")
     public ResponseEntity<ResponseDTO> updateMap(
             @RequestPart(value = "file") MultipartFile multipartFile,
             @PathVariable Long spaceCode){
@@ -59,7 +59,7 @@ public class SpaceController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "좋아요 수정 성공", spaceService.likeUpdate(spaceDTO)));
     }
 
-    @PutMapping("/thumbnails/upload/{spaceCode}")
+    @PostMapping("/thumbnails/upload/{spaceCode}")
     public ResponseEntity<ResponseDTO> uploadThumbnail(
             @RequestPart(value = "file") MultipartFile multipartFile,
             @PathVariable Long spaceCode){
