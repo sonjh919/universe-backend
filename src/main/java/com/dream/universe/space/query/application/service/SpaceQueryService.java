@@ -62,4 +62,26 @@ public class SpaceQueryService {
 //        System.out.println("space = " + space);
         return space;
     }
+
+    public List<Space> searchAllSpace(String spaceName) {
+        List<Space> space = spaceQueryDAO.findByspaceNameContains(spaceName);
+        System.out.println("space = " + space);
+        List<Space> spacetag1 = spaceQueryDAO.findByspaceTag1Contains(spaceName);
+        List<Space> spacetag2 = spaceQueryDAO.findByspaceTag2Contains(spaceName);
+        List<Space> spacetag3 = spaceQueryDAO.findByspaceTag3Contains(spaceName);
+
+        space.addAll(spacetag1);
+        space.addAll(spacetag2);
+        space.addAll(spacetag3);
+
+        if(space.size()>17){
+            int i=space.size()-1;
+            while(i>11){
+                space.remove(i);
+                i--;
+            }
+        }
+
+        return space;
+    }
 }
