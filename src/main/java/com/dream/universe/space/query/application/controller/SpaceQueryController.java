@@ -25,4 +25,10 @@ public class SpaceQueryController {
         System.out.println("추천 스페이스 조회 API");
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "스페이스 정보 조회 성공", spaceQueryService.findAllRecommend(spaceDTO.getSpaceType())));
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<ResponseDTO> searchSpace(@RequestBody SpaceDTO spaceDTO){
+        System.out.println("스페이스 검색 API");
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "스페이스 검색 성공", spaceQueryService.searchAllSpace(spaceDTO.getSpaceName())));
+    }
 }
