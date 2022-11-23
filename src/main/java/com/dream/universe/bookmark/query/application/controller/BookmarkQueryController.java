@@ -23,4 +23,12 @@ public class BookmarkQueryController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "즐겨찾기 정보 조회 성공",  bookmarkQueryService.findAllById(accessToken)));
 
     }
+
+    @GetMapping("/spaceinfo")
+    public ResponseEntity<ResponseDTO> findBookmarkSpaceById(@RequestHeader(value="Authorization")  String accessToken){
+        System.out.println("즐겨찾기된 맵 정보 조회 API");
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "즐겨찾기된 맵 정보 조회 성공",  bookmarkQueryService.findAllSpaceInfoById(accessToken)));
+
+    }
+
 }
