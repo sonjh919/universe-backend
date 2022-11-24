@@ -4,8 +4,11 @@ package com.dream.universe.space.command.application.service;
 import com.dream.universe.jwt.TokenProvider;
 import com.dream.universe.member.dao.MemberMapper;
 import com.dream.universe.member.dto.MemberDTO;
+import com.dream.universe.space.command.application.dao.MusicDAO;
 import com.dream.universe.space.command.application.dao.SpaceDAO;
+import com.dream.universe.space.command.application.dto.MusicDTO;
 import com.dream.universe.space.command.application.dto.SpaceDTO;
+import com.dream.universe.space.domain.model.Music;
 import com.dream.universe.space.domain.model.Space;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +19,14 @@ import java.util.Optional;
 public class SpaceService {
 
     public final SpaceDAO spaceDAO;
+    public final MusicDAO musicDAO;
 
     private final MemberMapper memberMapper;
     public final TokenProvider tokenProvider;
 
-    public SpaceService(SpaceDAO spaceDAO, MemberMapper memberMapper, TokenProvider tokenProvider){
+    public SpaceService(SpaceDAO spaceDAO,MusicDAO musicDAO, MemberMapper memberMapper, TokenProvider tokenProvider){
         this.spaceDAO = spaceDAO;
+        this.musicDAO = musicDAO;
         this.memberMapper = memberMapper;
         this.tokenProvider = tokenProvider;
     }
@@ -43,6 +48,15 @@ public class SpaceService {
         space.setSpaceWarning(0);
 
         spaceDAO.save(space);
+
+        Optional<Space> oSpace = spaceDAO.findById(space.getSpaceCode());
+
+        Space space2 = oSpace.get();
+
+        Music music = new Music();
+        music.setSpaceCode(space2.getSpaceCode());
+
+        musicDAO.save(music);
 
         return space;
     }
@@ -90,6 +104,7 @@ public class SpaceService {
 
     public Long delete(long spaceCode) {
         spaceDAO.deleteById(spaceCode);
+        musicDAO.deleteById(spaceCode);
         return spaceCode;
     }
 
@@ -102,5 +117,16 @@ public class SpaceService {
         spaceDAO.save(space);
 
         return space.getSpaceLike();
+    }
+
+    public String musicInsert(MusicDTO musicDTO) {
+        Optional<Music> oMusic = musicDAO.findById(musicDTO.getSpaceCode());
+
+        Music music = oMusic.get();
+        music.setMusicUrl(musicDTO.getMusicUrl());
+
+        musicDAO.save(music);
+
+        return music.getMusicUrl();
     }
 }
