@@ -3,13 +3,15 @@ package com.dream.universe.space.query.application.service;
 import com.dream.universe.jwt.TokenProvider;
 import com.dream.universe.member.dao.MemberMapper;
 import com.dream.universe.member.dto.MemberDTO;
+import com.dream.universe.space.domain.model.Music;
 import com.dream.universe.space.domain.model.Space;
+import com.dream.universe.space.query.application.dao.MusicQueryDAO;
 import com.dream.universe.space.query.application.dao.SpaceQueryDAO;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SpaceQueryService {
@@ -17,11 +19,13 @@ public class SpaceQueryService {
     private final TokenProvider tokenProvider;
     private final MemberMapper memberMapper;
     public final SpaceQueryDAO spaceQueryDAO;
+    public final MusicQueryDAO musicQueryDAO;
 
-    public SpaceQueryService(MemberMapper memberMapper, TokenProvider tokenProvider, SpaceQueryDAO spaceQueryDAO){
+    public SpaceQueryService(MemberMapper memberMapper, TokenProvider tokenProvider, SpaceQueryDAO spaceQueryDAO,MusicQueryDAO musicQueryDAO){
         this.memberMapper = memberMapper;
         this.tokenProvider = tokenProvider;
         this.spaceQueryDAO = spaceQueryDAO;
+        this.musicQueryDAO = musicQueryDAO;
     }
 
     public List<Space> findAllById(String accessToken) {
@@ -32,6 +36,12 @@ public class SpaceQueryService {
 
         System.out.println("space = " + space);
         return space;
+    }
+
+    public Music findMusicById(String spaceCode) {
+        Optional<Music> omusic = musicQueryDAO.findById(Long.parseLong(spaceCode));
+        Music music = omusic.get();
+        return music;
     }
 
     public List<Space> findAllRecommend(String spaceType) {
@@ -84,4 +94,5 @@ public class SpaceQueryService {
 
         return space;
     }
+
 }

@@ -20,6 +20,12 @@ public class SpaceQueryController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "스페이스 정보 조회 성공", spaceQueryService.findAllById(accessToken)));
     }
 
+    @GetMapping("/music")
+    public ResponseEntity<ResponseDTO> findMusicById(@RequestHeader(value="spaceCode")  String spaceCode){
+        System.out.println("음악 정보 조회 API");
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "음악 정보 조회 성공", spaceQueryService.findMusicById(spaceCode)));
+    }
+
     @GetMapping("/recommend")
     public ResponseEntity<ResponseDTO> findRecommendSpace(@RequestBody SpaceDTO spaceDTO){
         System.out.println("추천 스페이스 조회 API");
