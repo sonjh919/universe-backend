@@ -1,6 +1,8 @@
 package com.dream.universe.space.command.application.service;
 
 
+import com.dream.universe.bookmark.command.application.dao.BookmarkDAO;
+import com.dream.universe.bookmark.domain.model.Bookmark;
 import com.dream.universe.jwt.TokenProvider;
 import com.dream.universe.member.dao.MemberMapper;
 import com.dream.universe.member.dto.MemberDTO;
@@ -12,7 +14,7 @@ import com.dream.universe.space.domain.model.Music;
 import com.dream.universe.space.domain.model.Space;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,13 +22,15 @@ public class SpaceService {
 
     public final SpaceDAO spaceDAO;
     public final MusicDAO musicDAO;
+    public final BookmarkDAO bookmarkDAO;
 
     private final MemberMapper memberMapper;
     public final TokenProvider tokenProvider;
 
-    public SpaceService(SpaceDAO spaceDAO,MusicDAO musicDAO, MemberMapper memberMapper, TokenProvider tokenProvider){
+    public SpaceService(SpaceDAO spaceDAO,MusicDAO musicDAO, BookmarkDAO bookmarkDAO, MemberMapper memberMapper, TokenProvider tokenProvider){
         this.spaceDAO = spaceDAO;
         this.musicDAO = musicDAO;
+        this.bookmarkDAO = bookmarkDAO;
         this.memberMapper = memberMapper;
         this.tokenProvider = tokenProvider;
     }
@@ -105,6 +109,13 @@ public class SpaceService {
     public Long delete(long spaceCode) {
         spaceDAO.deleteById(spaceCode);
         musicDAO.deleteById(spaceCode);
+
+        List<Bookmark> Bookmark = bookmarkDAO.findAllBySpaceCode(spaceCode);
+
+        for(int i=Bookmark.size()-1;i>=0;i--) {
+            Bookmark bookmark = Bookmark.get(i);
+            bookmarkDAO.deleteById(bookmark.getBookmarkCode());
+        }
         return spaceCode;
     }
 
