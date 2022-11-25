@@ -1,8 +1,14 @@
 package com.dream.universe.member.controller;
 
 import com.dream.universe.common.ResponseDTO;
+import com.dream.universe.member.dto.HateDTO;
 import com.dream.universe.member.dto.MemberDTO;
 import com.dream.universe.member.service.AuthService;
+import com.fasterxml.jackson.core.json.UTF8JsonGenerator;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.json.simple.JSONObject;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -18,9 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.Member;
-import java.text.ParseException;
 import java.util.Base64;
 import java.util.Enumeration;
+import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/auths")
@@ -61,38 +68,97 @@ public class AuthController {
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "닉네임 중복 체크", authService.doubleCheckNickName(memberDTO)));
     }
 
-    @PostMapping("/card")
-    public ResponseEntity<ResponseDTO> idCardImg(@RequestParam("idCardImg") MultipartFile idCardImg) throws IOException {
-        System.out.println("학생증 인식 & 전공 선택 API");
-
-        byte[] array = idCardImg.getBytes();
-        System.out.println("length = " + array.length);
-
-        String cardImgFile = Base64.getEncoder().encodeToString(array);
+    @PostMapping("/hate")
+    public ResponseEntity<ResponseDTO> hate(@RequestParam(value = "text") String data)  throws ParseException {
+        System.out.println("혐오표현 확인 API");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
         MultiValueMap<String, String> body
                 = new LinkedMultiValueMap<>();
-        body.add("file", cardImgFile);
+        body.add("text", data);
 
         HttpEntity<MultiValueMap<String, String>> requestEntity
                 = new HttpEntity<>(body, headers);
 
-        String serverUrl = "http://54.180.154.17:8000/uploadimage/";
+        String serverUrl = "http://34.64.178.50:8000/chat/";
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<?> response = restTemplate
                 .postForEntity(serverUrl, requestEntity, String.class);
 
-
-        System.out.println(response.getBody());
+        System.out.println("response.getBody() = " + response.getBody());
 
         String jsonData = (String) response.getBody();
-        System.out.println(jsonData);
+        System.out.println("jsonData = " + jsonData);
 
-        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "이미지 전송 성공", jsonData));
+        JSONParser parser = new JSONParser();
+        Object ob = null;
+        try {
+            ob = parser.parse(jsonData);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("ob = " + ob);
+
+        //타입캐스팅
+        JSONObject js = (JSONObject) ob;
+
+        System.out.println("js.get(\"Isclean\") = " + js.get("Isclean"));
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "혐오표현 확인 성공", js.get("Isclean")));
+    }
+
+    @PostMapping("/card")
+    public ResponseEntity<ResponseDTO> idCardImg(@RequestParam("file") MultipartFile idCardImg) throws IOException {
+        System.out.println("학생증 인식 & 전공 선택 API");
+
+//        byte[] array = idCardImg.getBytes();
+//        System.out.println("length = " + array.length);
+//
+//        String cardImgFile = Base64.getEncoder().encodeToString(array);
+//        String image = UTF8JsonGenerator.
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+        MultiValueMap<String, Object> body
+                = new LinkedMultiValueMap<>();
+        body.add("file", idCardImg.getResource());
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity
+                = new HttpEntity<>(body, headers);
+
+        String serverUrl = "http://34.64.194.54:8000/uploadIDCardImage/";
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<?> response = restTemplate
+                .postForEntity(serverUrl, requestEntity, String.class);
+
+        System.out.println("response.getBody() = " + response.getBody());
+
+        String jsonData = (String) response.getBody();
+        System.out.println("jsonData = " + jsonData);
+
+        JSONParser parser = new JSONParser();
+        Object ob = null;
+        try {
+            ob = parser.parse(jsonData);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("ob = " + ob);
+
+        //타입캐스팅
+        JSONObject js = (JSONObject) ob;
+
+        System.out.println("js.get(\"major\") = " + js.get("major"));
+
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "이미지 전송 성공", js.get("major")));
     }
 
     @PutMapping("/login")
