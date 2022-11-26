@@ -16,6 +16,7 @@
              , MEMBER_CHERRY
              , MEMBER_NICKNAME
              , MEMBER_ROLE
+             , MEMBER_MAJOR
              , MEMBER_WITHDRAWAL
         FROM TB_MEMBER
         WHERE MEMBER_WITHDRAWAL = 'N'
@@ -33,6 +34,7 @@
              , MEMBER_CHERRY
              , MEMBER_NICKNAME
              , MEMBER_ROLE
+             , MEMBER_MAJOR
              , MEMBER_WITHDRAWAL
         FROM TB_MEMBER
         WHERE MEMBER_WITHDRAWAL = 'N'
@@ -50,6 +52,7 @@
              , MEMBER_CHERRY
              , MEMBER_NICKNAME
              , MEMBER_ROLE
+             , MEMBER_MAJOR
              , MEMBER_WITHDRAWAL
         FROM TB_MEMBER
         WHERE MEMBER_WITHDRAWAL = 'N'
@@ -67,6 +70,7 @@
              , MEMBER_CHERRY
              , MEMBER_NICKNAME
              , MEMBER_ROLE
+             , MEMBER_MAJOR
              , MEMBER_WITHDRAWAL
         FROM TB_MEMBER
         WHERE MEMBER_WITHDRAWAL = 'N'
