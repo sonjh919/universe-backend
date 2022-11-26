@@ -24,10 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.Member;
-import java.util.Base64;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @RestController
 @RequestMapping("/auths")
@@ -159,6 +156,89 @@ public class AuthController {
 
 
         return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "이미지 전송 성공", js.get("major")));
+    }
+
+    @PostMapping("/art")
+    public ResponseEntity<ResponseDTO> artImg(@RequestParam("file") MultipartFile artImg) throws IOException {
+        System.out.println("미술작품 추천 API");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+        MultiValueMap<String, Object> body
+                = new LinkedMultiValueMap<>();
+        body.add("file", artImg.getResource());
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity
+                = new HttpEntity<>(body, headers);
+
+        String serverUrl = "http://34.64.140.135:8000/uploadimg/";
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<?> response = restTemplate
+                .postForEntity(serverUrl, requestEntity, String.class);
+
+        System.out.println("response.getBody() = " + response.getBody());
+
+        String jsonData = (String) response.getBody();
+        System.out.println("jsonData = " + jsonData);
+
+        JSONParser parser = new JSONParser();
+        Object ob = null;
+        try {
+            ob = parser.parse(jsonData);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("ob = " + ob);
+
+        //타입캐스팅
+        JSONObject js = (JSONObject) ob;
+
+        System.out.println("js.get(\"category\") = " + js.get("category"));
+
+        // 디지털페인팅 8 유화 9 펜화 6 소묘 8 수채화 8
+
+        String url = "https://ouruniversebucket.s3.ap-northeast-2.amazonaws.com/ART/";
+        String category;
+        String number;
+
+
+        Random rand = new Random();
+
+        if(js.get("category").equals("디지털페인팅")){
+            category = "Digital/";
+            number = String.valueOf((rand.nextInt(7) + 1));
+            url = url + category + number + ".jpg";
+            System.out.println("url = " + url);
+        }
+        else if(js.get("category").equals("유화")){
+            category = "Oil/";
+            number = String.valueOf((rand.nextInt(8) + 1));
+            url = url + category + number + ".jpg";
+            System.out.println("url = " + url);
+        }
+        else if(js.get("category").equals("펜화")){
+            category = "Pen/";
+            number = String.valueOf((rand.nextInt(5) + 1));
+            url = url + category + number + ".jpg";
+            System.out.println("url = " + url);
+        }
+        else if(js.get("category").equals("소묘")){
+            category = "Somyo/";
+            number = String.valueOf((rand.nextInt(7) + 1));
+            url = url + category + number + ".jpg";
+            System.out.println("url = " + url);
+        }
+        else if(js.get("category").equals("수채화")){
+            category = "Watercolor/";
+            number = String.valueOf((rand.nextInt(7) + 1));
+            url = url + category + number + ".jpg";
+            System.out.println("url = " + url);
+        }
+
+        return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK, "미술작품 추천 성공", url));
     }
 
     @PutMapping("/login")
